@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Skilltrakker_API Database</title>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
+        <!-- Bootstrap 3.3.5 -->
+        <link rel="stylesheet" href="bower/admin-lte/bootstrap/css/bootstrap.min.css">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="bower/font-awesome/css/font-awesome.min.css">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="bower/ionicons/css/ionicons.min.css">
+        <!-- DataTables -->
+        <link rel="stylesheet" href="bower/datatables.net-bs/css/dataTables.bootstrap.min.css">
+        <link rel="stylesheet" href="bower/datatables.net-buttons-bs/css/buttons.bootstrap.min.css">
+        <!-- Code Mirror -->
+        <link rel="stylesheet" href="bower/codemirror/codemirror.css">
+        <!-- Fonts -->
+        <link href='fonts/indieflower/indie-flower.css' rel='stylesheet' type='text/css'>
+        <link href='fonts/source-sans-pro/source-sans-pro.css' rel='stylesheet' type='text/css'>
+
+        <!-- Theme style -->
+        <link rel="stylesheet" href="bower/admin-lte/dist/css/AdminLTE.min.css">
+        <!-- Salvattore -->
+        <link rel="stylesheet" href="bower/salvattore/salvattore.css">
+        <!-- AdminLTE Skins. Choose a skin from the css/skins
+           folder instead of downloading all of them to reduce the load. -->
+        <link rel="stylesheet" href="bower/admin-lte/dist/css/skins/_all-skins.min.css">
+        <!-- SchemaSpy -->
+        <link rel="stylesheet" href="schemaSpy.css">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="bower/html5shiv/html5shiv.min.js"></script>
+        <script src="bower/respond/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
+    <body class="hold-transition skin-blue layout-top-nav">
+        <div class="wrapper">
+            <header class="main-header">
+                <nav class="navbar navbar-static-top">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <a href="index.html" class="navbar-brand"><b>Skilltrakker_API</b> Database</a>
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse"><i class="fa fa-bars"></i></button>
+                        </div>
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+                            <ul class="nav navbar-nav">
+                                <li><a href="index.html">Tables <span class="sr-only">(current)</span></a></li>
+                                <li><a href="columns.html" title="All of the columns in the schema">Columns</a></li>
+                                <li><a href="constraints.html" title="Useful for diagnosing error messages that just give constraint name or number">Constraints</a></li>
+                                <li><a href="relationships.html" title="Diagram of table relationships">Relationships</a></li>
+                                <li><a href="orphans.html" title="View of tables with neither parents nor children">Orphan&nbsp;Tables</a></li>
+                                <li><a href="anomalies.html" title="Things that might not be quite right">Anomalies</a></li>
+                                <li><a href="routines.html" title="Procedures and functions">Routines</a></li>
+                            </ul>
+                        </div>
+                        <!-- /.navbar-collapse -->
+                        <!-- Navbar Right Menu -->
+                    </div>
+                    <!-- /.container-fluid -->
+                </nav>
+            </header>
+            <!-- Main content -->
+            <!-- Full Width Column -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>Columns</h1>
+                </section>
+                <!-- Main content -->
+                <section class="content">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                            <h3 class="box-title">Columns</h3>
+                        </div>
+                        <div class="box-body">
+                            <table id="column_table" class="table table-bordered table-striped dataTable" role="grid">
+                                <thead align='left'>
+                                    <tr>
+                                        <th>Table</th>
+                                        <th>Type</th>
+                                        <th>Column</th>
+                                        <th>Type</th>
+                                        <th>Size</th>
+                                        <th title='Are nulls allowed?'>Nullable</th>
+                                        <th title='Is column automatically updated?'>Auto</th>
+                                        <th title='Default value'>Default</th>
+                                        <th title='Comments' class="toggle"><span>Comments</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                <script>
+                    var tableData = [
+    {
+        "tableName": "CLASSES_CHALLENGES (CCE)",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>CLE_Id",
+        "type": "INT",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>Code of the Class<\/p>"
+    },
+    {
+        "tableName": "USERS (USE)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Status",
+        "type": "BIT",
+        "length": 1,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>USER Status 0 Inactive 1 Active<\/p>"
+    },
+    {
+        "tableName": "CHALLENGES (CHE)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Description",
+        "type": "MEDIUMTEXT",
+        "length": 16777215,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": ""
+    },
+    {
+        "tableName": "GYMNASTS (GYA)",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>Id",
+        "type": "INT",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "√",
+        "defaultValue": "null",
+        "comments": "<p>Gymnast code<\/p>"
+    },
+    {
+        "tableName": "SKILLS (SKI)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Category",
+        "type": "VARCHAR",
+        "length": 45,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>category to which the event belongs<\/p>"
+    },
+    {
+        "tableName": "GYMS (GYM)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Address",
+        "type": "JSON",
+        "length": 1073741824,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>GYM Address in JSON format<\/p>"
+    },
+    {
+        "tableName": "EVENTS (EVE)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Name",
+        "type": "VARCHAR",
+        "length": 45,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>Name of the Event<\/p>"
+    },
+    {
+        "tableName": "GYMNAST_SKILLS (GSI)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Interactions",
+        "type": "JSON",
+        "length": 1073741824,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>Interactions for the skill update by others gymnasts<br />\nHi 5<br />\nComments<br />\nApplasuse<br />\nIn JSON Format<\/p>"
+    },
+    {
+        "tableName": "GYMNASTS (GYA)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Last_Streak",
+        "type": "DATE",
+        "length": 10,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>Last amount of points before the gymnast lost his streak<\/p>"
+    },
+    {
+        "tableName": "CLASSES (CLE)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Description",
+        "type": "MEDIUMTEXT",
+        "length": 16777215,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>Description of the Class<\/p>"
+    },
+    {
+        "tableName": "GYMNASTS (GYA)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Current_Streak_Points",
+        "type": "INT",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "0",
+        "comments": "<p>Amount of points adquired by a Gymnas for loging everyday, is reset after 1 day of not loging.<\/p>"
+    },
+    {
+        "tableName": "GYMNAST_CLASSES_CHALLENGES (GCCE)",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>CCE_CLE_Id",
+        "type": "INT",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>Part of the composite foreign key<br />\nCode of the Class<\/p>"
+    },
+    {
+        "tableName": "USERS (USE)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Stripe_Email",
+        "type": "VARCHAR",
+        "length": 45,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>USER Email in Stripe Plataform<\/p>"
+    },
+    {
+        "tableName": "GYMNASTS (GYA)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Updated",
+        "type": "DATE",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": ""
+    },
+    {
+        "tableName": "TIMELINE (TME)",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>Id",
+        "type": "INT",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": ""
+    },
+    {
+        "tableName": "GYMNASTS (GYA)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "About",
+        "type": "MEDIUMTEXT",
+        "length": 16777215,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>Decription of the Gymnast<\/p>"
+    },
+    {
+        "tableName": "GYMNASTS (GYA)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Created",
+        "type": "DATE",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": ""
+    },
+    {
+        "tableName": "SKILLS (SKI)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Certificate",
+        "type": "BIT",
+        "length": 1,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "0",
+        "comments": "<p>Boolean value to know the status<\/p>"
+    },
+    {
+        "tableName": "CLASSES_CHALLENGES (CCE)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Is_Active?",
+        "type": "BIT",
+        "length": 1,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>Status of the Challenge 0 Inactive 1 Active<\/p>"
+    },
+    {
+        "tableName": "SKILLS (SKI)",
+        "tableType": "Table",
+        "keyClass": "foreignKey",
+        "keyTitle": "Foreign Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>EVE_id",
+        "type": "INT",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>Code of the Event<\/p>"
+    },
+    {
+        "tableName": "GYMS (GYM)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Name",
+        "type": "VARCHAR",
+        "length": 45,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>GYM Name<\/p>"
+    },
+    {
+        "tableName": "GYMNAST_CLASSES_CHALLENGES (GCCE)",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>CCE_Is_Daily?",
+        "type": "BIT",
+        "length": 1,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>Part of the composite foreign key<br />\nBoolean value to kown if is a Daily challenge.<\/p>"
+    },
+    {
+        "tableName": "GYMS (GYM)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Web",
+        "type": "VARCHAR",
+        "length": 45,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>GYM web domain<\/p>"
+    },
+    {
+        "tableName": "GYMNASTS (GYA)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Name",
+        "type": "VARCHAR",
+        "length": 45,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>Gymnast name<\/p>"
+    },
+    {
+        "tableName": "GYMS (GYM)",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>Id",
+        "type": "INT",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "√",
+        "defaultValue": "null",
+        "comments": "<p>GYM code<\/p>"
+    },
+    {
+        "tableName": "GYMNAST_CLASSES_CHALLENGES (GCCE)",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>CCE_CHE_Id",
+        "type": "INT",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>Part of the composite foreign key<br />\nCode of the Challenge<\/p>"
+    },
+    {
+        "tableName": "TIMELINE (TME)",
+        "tableType": "Table",
+        "keyClass": "foreignKey",
+        "keyTitle": "Foreign Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>GYM_Id",
+        "type": "INT",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>Code of the Gym owner of this Timeline<\/p>"
+    },
+    {
+        "tableName": "SKILLS (SKI)",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>Id",
+        "type": "INT",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "√",
+        "defaultValue": "null",
+        "comments": "<p>Code of the Skill<\/p>"
+    },
+    {
+        "tableName": "GYMNASTS_CLASSES (GCE)",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>GYA_Id",
+        "type": "INT",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>Foreing key from Gymnasts table<\/p>"
+    },
+    {
+        "tableName": "GYMNAST_CLASSES_CHALLENGES (GCCE)",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>GYA_Id",
+        "type": "INT",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>FK of Gymnast<\/p>"
+    },
+    {
+        "tableName": "USERS (USE)",
+        "tableType": "Table",
+        "keyClass": "foreignKey",
+        "keyTitle": "Foreign Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>GYM_Id",
+        "type": "INT",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>Gym in which the USER is enrolled<\/p>"
+    },
+    {
+        "tableName": "GYMS (GYM)",
+        "tableType": "Table",
+        "keyClass": "foreignKey",
+        "keyTitle": "Foreign Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>USE_id",
+        "type": "INT",
+        "length": 10,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>GYM Owner code<\/p>"
+    },
+    {
+        "tableName": "GYMNASTS (GYA)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Status",
+        "type": "BIT",
+        "length": 1,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>Gymnast status 0 Inactive 1 Active<\/p>"
+    },
+    {
+        "tableName": "USERS (USE)",
+        "tableType": "Table",
+        "keyClass": "indexedColumn",
+        "keyTitle": "Indexed",
+        "name": "<i class='fa fa-sitemap fa-rotate-120' style='padding-right: 5px;'><\/i>email",
+        "type": "VARCHAR",
+        "length": 45,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>USER email address<\/p>"
+    },
+    {
+        "tableName": "SKILL_LEVEL (SLE)",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>LVE_Id",
+        "type": "INT",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>Code of the Level<\/p>"
+    },
+    {
+        "tableName": "LEVELS (LVE)",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>Id",
+        "type": "INT",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "√",
+        "defaultValue": "null",
+        "comments": "<p>Code of the Level<\/p>"
+    },
+    {
+        "tableName": "TIMELINE (TME)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "DATA",
+        "type": "JSON",
+        "length": 1073741824,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>Content of the Timeline in format JSON<\/p>"
+    },
+    {
+        "tableName": "EVENTS (EVE)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Active",
+        "type": "BIT",
+        "length": 1,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "0",
+        "comments": "<p>Status of the event 0 Inactive 1 Active<\/p>"
+    },
+    {
+        "tableName": "USERS (USE)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Stripe_Key",
+        "type": "VARCHAR",
+        "length": 45,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>USER Stripe Key<\/p>"
+    },
+    {
+        "tableName": "LEVELS (LVE)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Description",
+        "type": "MEDIUMTEXT",
+        "length": 16777215,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>Description of what that level means<\/p>"
+    },
+    {
+        "tableName": "GYMNAST_SKILLS (GSI)",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>GYA_Id",
+        "type": "INT",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>Gymnast code<\/p>"
+    },
+    {
+        "tableName": "USERS (USE)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "password",
+        "type": "VARCHAR",
+        "length": 45,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>USER password for loging into the system<\/p>"
+    },
+    {
+        "tableName": "SKILL_LEVEL (SLE)",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>SKI_Id",
+        "type": "INT",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>Code of the Skill<\/p>"
+    },
+    {
+        "tableName": "CLASSES_CHALLENGES (CCE)",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>CHE_Id",
+        "type": "INT",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>Code of the Challenge<\/p>"
+    },
+    {
+        "tableName": "CLASSES_CHALLENGES (CCE)",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>Is_Daily?",
+        "type": "BIT",
+        "length": 1,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>Tells if a Challenge is Daily or not 0 No 1 Yes<\/p>"
+    },
+    {
+        "tableName": "GYMNAST_SKILLS (GSI)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Coach_Verify",
+        "type": "JSON",
+        "length": 1073741824,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>Verification from a coach when an gymnast set the level for a skill<\/p>"
+    },
+    {
+        "tableName": "CLASSES (CLE)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Name",
+        "type": "VARCHAR",
+        "length": 45,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>Name of the Class<\/p>"
+    },
+    {
+        "tableName": "GYMNAST_CLASSES_CHALLENGES (GCCE)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Interactions",
+        "type": "JSON",
+        "length": 1073741824,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>Interactions for the completed challenged by others gymnasts<br />\nHi 5<br />\nComments<br />\nApplasuse<br />\nIn JSON Format<\/p>"
+    },
+    {
+        "tableName": "GYMNAST_CLASSES_CHALLENGES (GCCE)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Completion",
+        "type": "BIT",
+        "length": 1,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "0",
+        "comments": "<p>Status of the Challenge<br />\n0 inactive<br />\n1 Active<\/p>"
+    },
+    {
+        "tableName": "USERS (USE)",
+        "tableType": "Table",
+        "keyClass": "indexedColumn",
+        "keyTitle": "Indexed",
+        "name": "<i class='fa fa-sitemap fa-rotate-120' style='padding-right: 5px;'><\/i>username",
+        "type": "VARCHAR",
+        "length": 45,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>USER username for login into the system<\/p>"
+    },
+    {
+        "tableName": "SKILLS (SKI)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Name",
+        "type": "VARCHAR",
+        "length": 45,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>Name of the skill<\/p>"
+    },
+    {
+        "tableName": "GYMNASTS_CLASSES (GCE)",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>CLE_Id",
+        "type": "INT",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>Foreing key from Classes table<\/p>"
+    },
+    {
+        "tableName": "GYMNASTS (GYA)",
+        "tableType": "Table",
+        "keyClass": "foreignKey",
+        "keyTitle": "Foreign Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>USE_id",
+        "type": "INT",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>User Account id in which this Gymnast is registered.<\/p>"
+    },
+    {
+        "tableName": "GYMS (GYM)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Description",
+        "type": "VARCHAR",
+        "length": 45,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>GYM Description<\/p>"
+    },
+    {
+        "tableName": "GYMNASTS (GYA)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Birth_Date",
+        "type": "DATE",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>Gymnast Birth Date<\/p>"
+    },
+    {
+        "tableName": "CLASSES (CLE)",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>Id",
+        "type": "INT",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "√",
+        "defaultValue": "null",
+        "comments": "<p>Id of the Class<\/p>"
+    },
+    {
+        "tableName": "CHALLENGES (CHE)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Name",
+        "type": "VARCHAR",
+        "length": 45,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": ""
+    },
+    {
+        "tableName": "GYMNASTS (GYA)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Life_Time_Score",
+        "type": "INT",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "0",
+        "comments": "<p>Score gather by an gymnast since is member of a gym.<\/p>"
+    },
+    {
+        "tableName": "SKILLS (SKI)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Description",
+        "type": "MEDIUMTEXT",
+        "length": 16777215,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>Description of the Skill<\/p>"
+    },
+    {
+        "tableName": "GYMNAST_CLASSES_CHALLENGES (GCCE)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Date_of_Completion",
+        "type": "DATE",
+        "length": 10,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>Date in wich the challenge was completed<\/p>"
+    },
+    {
+        "tableName": "CHALLENGES (CHE)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Points",
+        "type": "INT",
+        "length": 10,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": ""
+    },
+    {
+        "tableName": "USERS (USE)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Stripe_Id",
+        "type": "VARCHAR",
+        "length": 45,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>USER Code for Stripe plataform<\/p>"
+    },
+    {
+        "tableName": "GYMNAST_SKILLS (GSI)",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>SKI_Id",
+        "type": "INT",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>Skill code<\/p>"
+    },
+    {
+        "tableName": "CHALLENGES (CHE)",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>Id",
+        "type": "INT",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "√",
+        "defaultValue": "null",
+        "comments": ""
+    },
+    {
+        "tableName": "USERS (USE)",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>id",
+        "type": "INT",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "√",
+        "defaultValue": "null",
+        "comments": "<p>USER code<\/p>"
+    },
+    {
+        "tableName": "EVENTS (EVE)",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>Id",
+        "type": "INT",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>Code of the Event<\/p>"
+    },
+    {
+        "tableName": "GYMNAST_SKILLS (GSI)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Timestamp",
+        "type": "DATE",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": ""
+    },
+    {
+        "tableName": "EVENTS (EVE)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Abbrev",
+        "type": "VARCHAR",
+        "length": 45,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>Abbreviation of the Event<\/p>"
+    },
+    {
+        "tableName": "LEVELS (LVE)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Level",
+        "type": "VARCHAR",
+        "length": 45,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>Name for the Level<\/p>"
+    },
+    {
+        "tableName": "CLASSES_CHALLENGES (CCE)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Daily_date",
+        "type": "DATE",
+        "length": 10,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>If the Challenge is Daily, This field is the day in wich<br />\nhad to be completed.<\/p>"
+    },
+    {
+        "tableName": "GYMNAST_SKILLS (GSI)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Progress_status",
+        "type": "VARCHAR",
+        "length": 45,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>Tells the Gymnast actual status in learning the skill<\/p>"
+    },
+    {
+        "tableName": "SKILL_LEVEL (SLE)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Secuence",
+        "type": "BIT",
+        "length": 1,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "0",
+        "comments": "<p>The Skill has a secuence?<br />\n0 No<br />\n1 Yes<\/p>"
+    },
+    {
+        "tableName": "GYMS (GYM)",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "Phone",
+        "type": "VARCHAR",
+        "length": 45,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>GYM Phone<\/p>"
+    }
+];
+                    var config = {
+                        pagination: true
+                    };
+                </script>
+            </div>
+            <!-- /.content-wrapper -->
+            <footer class="main-footer">
+                <div>
+                    <div class="pull-right hidden-xs">
+                        <a href="https://github.com/schemaspy/schemaspy" title="GitHub for SchemaSpy"><i class="fa fa-github-square fa-2x"></i></a>
+                        <a href="http://stackoverflow.com/questions/tagged/schemaspy" title="StackOverflow for SchemaSpy"><i class="fa fa-stack-overflow fa-2x"></i></a>
+                    </div>
+                    <strong>Generated by <a href="http://schemaspy.org/" class="logo-text"><i class="fa fa-database"></i> SchemaSpy 6.1.0</a></strong>
+                </div>
+                <!-- /.container -->
+            </footer>
+        </div>
+        <!-- ./wrapper -->
+
+        <!-- jQuery 2.2.3 -->
+        <script src="bower/admin-lte/plugins/jQuery/jquery-2.2.3.min.js"></script>
+        <script src="bower/admin-lte/plugins/jQueryUI/jquery-ui.min.js"></script>
+        <!-- Bootstrap 3.3.5 -->
+        <script src="bower/admin-lte/bootstrap/js/bootstrap.min.js"></script>
+        <!-- DataTables -->
+        <script src="bower/datatables.net/jquery.dataTables.min.js"></script>
+        <script src="bower/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+        <script src="bower/datatables.net-buttons/dataTables.buttons.min.js"></script>
+        <script src="bower/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+        <script src="bower/datatables.net-buttons/buttons.html5.min.js"></script>
+        <script src="bower/datatables.net-buttons/buttons.print.min.js"></script>
+        <script src="bower/datatables.net-buttons/buttons.colVis.min.js"></script>
+        <!-- SheetJS -->
+        <script src="bower/js-xlsx/xlsx.full.min.js"></script>
+        <!-- pdfmake -->
+        <script src="bower/pdfmake/pdfmake.min.js"></script>
+        <script src="bower/pdfmake/vfs_fonts.js"></script>
+        <!-- SlimScroll -->
+        <script src="bower/admin-lte/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+        <!-- FastClick -->
+        <script src="bower/admin-lte/plugins/fastclick/fastclick.js"></script>
+        <!-- Salvattore -->
+        <script src="bower/salvattore/salvattore.min.js"></script>
+        <!-- AnchorJS -->
+        <script src="bower/anchor-js/anchor.min.js"></script>
+        <!-- CodeMirror -->
+        <script src="bower/codemirror/codemirror.js"></script>
+        <script src="bower/codemirror/sql.js"></script>
+        <!-- AdminLTE App -->
+        <script src="bower/admin-lte/dist/js/app.min.js"></script>
+        <script src="column.js"></script>
+        <script src="schemaSpy.js"></script>
+    </body>
+</html>
