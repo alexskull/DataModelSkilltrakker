@@ -1,277 +1,301 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <database name="Skilltrakker_API" schema="Skilltrakker_API" type="MySQL - 8.0.21">
    <tables>
-      <table catalog="Skilltrakker_API" name="CHALLENGES (CHE)" numRows="0" remarks="Table that stores CHALLENGES information" type="TABLE">
-         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="Id" nullable="false" remarks="" size="10" type="INT" typeCode="4">
-            <child catalog="Skilltrakker_API" column="CHE_Id" foreignKey="fk_CHE_is_in_CLE" implied="false" onDeleteCascade="false" table="CLASSES_CHALLENGES (CCE)"/>
+      <table catalog="Skilltrakker_API" name="challenges" numRows="0" remarks="Table that stores CHALLENGES' information" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="challenge' id" size="10" type="INT" typeCode="4">
+            <child catalog="Skilltrakker_API" column="challenges_id" foreignKey="fk_challenge_has_classes_idx" implied="false" onDeleteCascade="false" table="daily_challenges"/>
+            <child catalog="Skilltrakker_API" column="challenges_id" foreignKey="fk_challenge_is_in_class_" implied="false" onDeleteCascade="false" table="normal_challenges"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="Name" nullable="false" remarks="" size="45" type="VARCHAR" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="Description" nullable="false" remarks="" size="16777215" type="MEDIUMTEXT" typeCode="-1"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="Points" nullable="true" remarks="" size="10" type="INT" typeCode="4"/>
-         <primaryKey column="Id" sequenceNumberInPK="1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="false" remarks="challenge' name" size="45" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="description" nullable="false" remarks="challenge' description" size="16777215" type="MEDIUMTEXT" typeCode="-1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="points" nullable="true" remarks="challenge' points" size="10" type="INT" typeCode="4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
          <index name="PRIMARY" unique="true">
-            <column ascending="true" name="Id"/>
+            <column ascending="true" name="id"/>
          </index>
       </table>
-      <table catalog="Skilltrakker_API" name="CLASSES (CLE)" numRows="0" remarks="Table that stores CLASSES information" type="TABLE">
-         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="Id" nullable="false" remarks="Id of the Class" size="10" type="INT" typeCode="4">
-            <child catalog="Skilltrakker_API" column="CLE_Id" foreignKey="fk_CLE_has_CHE" implied="false" onDeleteCascade="false" table="CLASSES_CHALLENGES (CCE)"/>
-            <child catalog="Skilltrakker_API" column="CLE_Id" foreignKey="fk_CLE_has_GYA" implied="false" onDeleteCascade="false" table="GYMNASTS_CLASSES (GCE)"/>
+      <table catalog="Skilltrakker_API" name="classes" numRows="0" remarks="Table that stores CLASSES' information" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="Class' id" size="10" type="INT" typeCode="4">
+            <child catalog="Skilltrakker_API" column="classes_id" foreignKey="fk_class_has_daily_challenges" implied="false" onDeleteCascade="false" table="daily_challenges"/>
+            <child catalog="Skilltrakker_API" column="classes_id" foreignKey="fk_class_has_gymnasts" implied="false" onDeleteCascade="false" table="gymnasts_classes"/>
+            <child catalog="Skilltrakker_API" column="classes_id" foreignKey="fk_class_has_challenges" implied="false" onDeleteCascade="false" table="normal_challenges"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="Name" nullable="false" remarks="Name of the Class" size="45" type="VARCHAR" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="Description" nullable="true" remarks="Description of the Class" size="16777215" type="MEDIUMTEXT" typeCode="-1"/>
-         <primaryKey column="Id" sequenceNumberInPK="1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="false" remarks="Class' name" size="45" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="description" nullable="true" remarks="Class' description" size="16777215" type="MEDIUMTEXT" typeCode="-1"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
          <index name="PRIMARY" unique="true">
-            <column ascending="true" name="Id"/>
+            <column ascending="true" name="id"/>
          </index>
       </table>
-      <table catalog="Skilltrakker_API" name="CLASSES_CHALLENGES (CCE)" numRows="0" remarks="Table that stores the CHALLENGES that a CLASS had." type="TABLE">
-         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="CLE_Id" nullable="false" remarks="Code of the Class" size="10" type="INT" typeCode="4">
-            <child catalog="Skilltrakker_API" column="CCE_CLE_Id" foreignKey="fk_CCE_are_done_by_GYA" implied="false" onDeleteCascade="false" table="GYMNAST_CLASSES_CHALLENGES (GCCE)"/>
-            <parent catalog="Skilltrakker_API" column="Id" foreignKey="fk_CLE_has_CHE" implied="false" onDeleteCascade="false" table="CLASSES (CLE)"/>
+      <table catalog="Skilltrakker_API" name="completed_challenges" numRows="0" remarks="Table that stores the CHALLENGES that a GYMNAST has completed." type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="Auto increment code for challenges" size="10" type="INT" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="gymnasts_id" nullable="false" remarks="gymnast' code" size="10" type="INT" typeCode="4">
+            <parent catalog="Skilltrakker_API" column="id" foreignKey="fk_completed_challenges_has_gymnasts" implied="false" onDeleteCascade="false" table="gymnasts"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="CHE_Id" nullable="false" remarks="Code of the Challenge" size="10" type="INT" typeCode="4">
-            <child catalog="Skilltrakker_API" column="CCE_CHE_Id" foreignKey="fk_CCE_are_done_by_GYA" implied="false" onDeleteCascade="false" table="GYMNAST_CLASSES_CHALLENGES (GCCE)"/>
-            <parent catalog="Skilltrakker_API" column="Id" foreignKey="fk_CHE_is_in_CLE" implied="false" onDeleteCascade="false" table="CHALLENGES (CHE)"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="daily_classes_id" nullable="true" remarks="Foreing key from DAILY CHALLENGES table" size="10" type="INT" typeCode="4">
+            <parent catalog="Skilltrakker_API" column="classes_id" foreignKey="fk_gymnast_has_daily_challenges" implied="false" onDeleteCascade="false" table="daily_challenges"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="Is_Daily?" nullable="false" remarks="Tells if a Challenge is Daily or not 0 No 1 Yes" size="1" type="BIT" typeCode="-7">
-            <child catalog="Skilltrakker_API" column="CCE_Is_Daily?" foreignKey="fk_CCE_are_done_by_GYA" implied="false" onDeleteCascade="false" table="GYMNAST_CLASSES_CHALLENGES (GCCE)"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="daily_challenges_id" nullable="true" remarks="Foreing key from DAILY CHALLENGES table" size="10" type="INT" typeCode="4">
+            <parent catalog="Skilltrakker_API" column="challenges_id" foreignKey="fk_gymnast_has_daily_challenges" implied="false" onDeleteCascade="false" table="daily_challenges"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="Is_Active?" nullable="false" remarks="Status of the Challenge 0 Inactive 1 Active" size="1" type="BIT" typeCode="-7"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="Daily_date" nullable="true" remarks="If the Challenge is Daily, This field is the day in wich&#10;had to be completed." size="10" type="DATE" typeCode="91"/>
-         <primaryKey column="CLE_Id" sequenceNumberInPK="1"/>
-         <primaryKey column="CHE_Id" sequenceNumberInPK="2"/>
-         <primaryKey column="Is_Daily?" sequenceNumberInPK="3"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="daily_challenges_date" nullable="true" remarks="Foreing key from DAILY CHALLENGES table" size="10" type="DATE" typeCode="91">
+            <parent catalog="Skilltrakker_API" column="date_challenge" foreignKey="fk_gymnast_has_daily_challenges" implied="false" onDeleteCascade="false" table="daily_challenges"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="normal_classes_id" nullable="true" remarks="Foreing key from NORMAL CHALLENGES table" size="10" type="INT" typeCode="4">
+            <parent catalog="Skilltrakker_API" column="classes_id" foreignKey="fk_gymnast_has_normal_challenges" implied="false" onDeleteCascade="false" table="normal_challenges"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="normal_challenges_id" nullable="true" remarks="Foreing key from NORMAL CHALLENGES table" size="10" type="INT" typeCode="4">
+            <parent catalog="Skilltrakker_API" column="challenges_id" foreignKey="fk_gymnast_has_normal_challenges" implied="false" onDeleteCascade="false" table="normal_challenges"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="date_of_completation" nullable="false" remarks="Date in wich the challenge was completed" size="10" type="DATE" typeCode="91"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="Interactions" nullable="true" remarks="Interactions for the completed challenged by others gymnasts&#10;Hi 5&#10;Comments&#10;Applasuse&#10;In JSON Format" size="1073741824" type="JSON" typeCode="-1"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
          <index name="PRIMARY" unique="true">
-            <column ascending="true" name="CLE_Id"/>
-            <column ascending="true" name="CHE_Id"/>
-            <column ascending="true" name="Is_Daily?"/>
+            <column ascending="true" name="id"/>
          </index>
-         <index name="fk_CHE_is_in_CLE_idx" unique="false">
-            <column ascending="true" name="CLE_Id"/>
+         <index name="fk_completed_challenges_has_gymnasts_idx" unique="false">
+            <column ascending="true" name="gymnasts_id"/>
          </index>
-         <index name="fk_CLE_has_CHE_idx" unique="false">
-            <column ascending="true" name="CHE_Id"/>
+         <index name="fk_gymnast_has_daily_challenges_idx" unique="false">
+            <column ascending="true" name="daily_classes_id"/>
+            <column ascending="true" name="daily_challenges_id"/>
+            <column ascending="true" name="daily_challenges_date"/>
+         </index>
+         <index name="fk_gymnast_has_normal_challenges_idx" unique="false">
+            <column ascending="true" name="normal_classes_id"/>
+            <column ascending="true" name="normal_challenges_id"/>
          </index>
       </table>
-      <table catalog="Skilltrakker_API" name="EVENTS (EVE)" numRows="0" remarks="Table that stores the EVENTS in wich a skill is executed, if they are active and the respective abreviation." type="TABLE">
-         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="Id" nullable="false" remarks="Code of the Event" size="10" type="INT" typeCode="4">
-            <child catalog="Skilltrakker_API" column="EVE_id" foreignKey="fk_SKI_EVE" implied="false" onDeleteCascade="false" table="SKILLS (SKI)"/>
+      <table catalog="Skilltrakker_API" name="daily_challenges" numRows="0" remarks="Table that stores the daily challenges that a class had." type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="classes_id" nullable="false" remarks="Class' code" size="10" type="INT" typeCode="4">
+            <child catalog="Skilltrakker_API" column="daily_classes_id" foreignKey="fk_gymnast_has_daily_challenges" implied="false" onDeleteCascade="false" table="completed_challenges"/>
+            <parent catalog="Skilltrakker_API" column="id" foreignKey="fk_class_has_daily_challenges" implied="false" onDeleteCascade="false" table="classes"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="Name" nullable="true" remarks="Name of the Event" size="45" type="VARCHAR" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="Abbrev" nullable="true" remarks="Abbreviation of the Event" size="45" type="VARCHAR" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="0" digits="0" id="3" name="Active" nullable="true" remarks="Status of the event 0 Inactive 1 Active" size="1" type="BIT" typeCode="-7"/>
-         <primaryKey column="Id" sequenceNumberInPK="1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="challenges_id" nullable="false" remarks="Challenge' code" size="10" type="INT" typeCode="4">
+            <child catalog="Skilltrakker_API" column="daily_challenges_id" foreignKey="fk_gymnast_has_daily_challenges" implied="false" onDeleteCascade="false" table="completed_challenges"/>
+            <parent catalog="Skilltrakker_API" column="id" foreignKey="fk_challenge_has_classes_idx" implied="false" onDeleteCascade="false" table="challenges"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="date_challenge" nullable="false" remarks="Date in wich the challenge has to be completed." size="10" type="DATE" typeCode="91">
+            <child catalog="Skilltrakker_API" column="daily_challenges_date" foreignKey="fk_gymnast_has_daily_challenges" implied="false" onDeleteCascade="false" table="completed_challenges"/>
+         </column>
+         <primaryKey column="classes_id" sequenceNumberInPK="1"/>
+         <primaryKey column="challenges_id" sequenceNumberInPK="2"/>
+         <primaryKey column="date_challenge" sequenceNumberInPK="3"/>
          <index name="PRIMARY" unique="true">
-            <column ascending="true" name="Id"/>
+            <column ascending="true" name="classes_id"/>
+            <column ascending="true" name="challenges_id"/>
+            <column ascending="true" name="date_challenge"/>
+         </index>
+         <index name="fk_challenge_has_classes_idx" unique="false">
+            <column ascending="true" name="classes_id"/>
+         </index>
+         <index name="fk_class_has_daily_challenges_idx" unique="false">
+            <column ascending="true" name="challenges_id"/>
          </index>
       </table>
-      <table catalog="Skilltrakker_API" name="GYMNAST_CLASSES_CHALLENGES (GCCE)" numRows="0" remarks="Table that stores the CHALLENGES that a GYMNAST has completed." type="TABLE">
-         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="GYA_Id" nullable="false" remarks="FK of Gymnast" size="10" type="INT" typeCode="4">
-            <parent catalog="Skilltrakker_API" column="Id" foreignKey="fk_GYA_has_CCE" implied="false" onDeleteCascade="false" table="GYMNASTS (GYA)"/>
+      <table catalog="Skilltrakker_API" name="events" numRows="0" remarks="Table that stores the EVENTS in wich a skill is executed, if they are active and the respective abreviation." type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="Code of the Event" size="10" type="INT" typeCode="4">
+            <child catalog="Skilltrakker_API" column="events_id" foreignKey="fk_skills_events" implied="false" onDeleteCascade="false" table="skills"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="CCE_CLE_Id" nullable="false" remarks="Part of the composite foreign key&#10;Code of the Class" size="10" type="INT" typeCode="4">
-            <parent catalog="Skilltrakker_API" column="CLE_Id" foreignKey="fk_CCE_are_done_by_GYA" implied="false" onDeleteCascade="false" table="CLASSES_CHALLENGES (CCE)"/>
-         </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="CCE_CHE_Id" nullable="false" remarks="Part of the composite foreign key&#10;Code of the Challenge" size="10" type="INT" typeCode="4">
-            <parent catalog="Skilltrakker_API" column="CHE_Id" foreignKey="fk_CCE_are_done_by_GYA" implied="false" onDeleteCascade="false" table="CLASSES_CHALLENGES (CCE)"/>
-         </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="CCE_Is_Daily?" nullable="false" remarks="Part of the composite foreign key&#10;Boolean value to kown if is a Daily challenge." size="1" type="BIT" typeCode="-7">
-            <parent catalog="Skilltrakker_API" column="Is_Daily?" foreignKey="fk_CCE_are_done_by_GYA" implied="false" onDeleteCascade="false" table="CLASSES_CHALLENGES (CCE)"/>
-         </column>
-         <column autoUpdated="false" defaultValue="0" digits="0" id="4" name="Completion" nullable="true" remarks="Status of the Challenge&#10;0 inactive&#10;1 Active" size="1" type="BIT" typeCode="-7"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="Date_of_Completion" nullable="true" remarks="Date in wich the challenge was completed" size="10" type="DATE" typeCode="91"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="Interactions" nullable="true" remarks="Interactions for the completed challenged by others gymnasts&#10;Hi 5&#10;Comments&#10;Applasuse&#10;In JSON Format" size="1073741824" type="JSON" typeCode="-1"/>
-         <primaryKey column="GYA_Id" sequenceNumberInPK="1"/>
-         <primaryKey column="CCE_CLE_Id" sequenceNumberInPK="2"/>
-         <primaryKey column="CCE_CHE_Id" sequenceNumberInPK="3"/>
-         <primaryKey column="CCE_Is_Daily?" sequenceNumberInPK="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="true" remarks="Name of the Event" size="45" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="abbrev" nullable="true" remarks="Abbreviation of the Event" size="45" type="VARCHAR" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
          <index name="PRIMARY" unique="true">
-            <column ascending="true" name="GYA_Id"/>
-            <column ascending="true" name="CCE_CLE_Id"/>
-            <column ascending="true" name="CCE_CHE_Id"/>
-            <column ascending="true" name="CCE_Is_Daily?"/>
-         </index>
-         <index name="fk_CCE_are_done_by_GYA_idx" unique="false">
-            <column ascending="true" name="GYA_Id"/>
-         </index>
-         <index name="fk_GYA_has_CCE_idx" unique="false">
-            <column ascending="true" name="CCE_CLE_Id"/>
-            <column ascending="true" name="CCE_CHE_Id"/>
-            <column ascending="true" name="CCE_Is_Daily?"/>
+            <column ascending="true" name="id"/>
          </index>
       </table>
-      <table catalog="Skilltrakker_API" name="GYMNAST_SKILLS (GSI)" numRows="0" remarks="Table that stores SKILLS that a GYMNAST get." type="TABLE">
-         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="GYA_Id" nullable="false" remarks="Gymnast code" size="10" type="INT" typeCode="4">
-            <parent catalog="Skilltrakker_API" column="Id" foreignKey="fk_GYA_has_SKI" implied="false" onDeleteCascade="false" table="GYMNASTS (GYA)"/>
+      <table catalog="Skilltrakker_API" name="gymnast_has_skills" numRows="0" remarks="Table that stores SKILLS that a GYMNAST get." type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="gymnast_id" nullable="false" remarks="Gymnast' code" size="10" type="INT" typeCode="4">
+            <parent catalog="Skilltrakker_API" column="id" foreignKey="fk_gymnast_has_skills" implied="false" onDeleteCascade="false" table="gymnasts"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="SKI_Id" nullable="false" remarks="Skill code" size="10" type="INT" typeCode="4">
-            <parent catalog="Skilltrakker_API" column="Id" foreignKey="fk_SKI_is_mastered_by_GYA" implied="false" onDeleteCascade="false" table="SKILLS (SKI)"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="skills_Id" nullable="false" remarks="Skill' code" size="10" type="INT" typeCode="4">
+            <parent catalog="Skilltrakker_API" column="id" foreignKey="fk_skills_is_mastered_by_gymnast" implied="false" onDeleteCascade="false" table="skills"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="Progress_status" nullable="true" remarks="Tells the Gymnast actual status in learning the skill" size="45" type="VARCHAR" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="Coach_Verify" nullable="true" remarks="Verification from a coach when an gymnast set the level for a skill" size="1073741824" type="JSON" typeCode="-1"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="Timestamp" nullable="false" remarks="" size="10" type="DATE" typeCode="91"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="Interactions" nullable="true" remarks="Interactions for the skill update by others gymnasts&#10;Hi 5&#10;Comments&#10;Applasuse&#10;In JSON Format" size="1073741824" type="JSON" typeCode="-1"/>
-         <primaryKey column="GYA_Id" sequenceNumberInPK="1"/>
-         <primaryKey column="SKI_Id" sequenceNumberInPK="2"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="progress_status" nullable="true" remarks="Tells the gymnast actual status in learning the skill" size="45" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="coach_verify" nullable="true" remarks="Verification from a coach when an gymnast set the level for a skill" size="1073741824" type="JSON" typeCode="-1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="timestamp" nullable="false" remarks="Date when a gymnast gets the skill" size="10" type="DATE" typeCode="91"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="interactions" nullable="true" remarks="Interactions for the skill update by others gymnasts&#10;Hi 5&#10;Comments&#10;Applasuse&#10;In JSON Format" size="1073741824" type="JSON" typeCode="-1"/>
+         <primaryKey column="gymnast_id" sequenceNumberInPK="1"/>
+         <primaryKey column="skills_Id" sequenceNumberInPK="2"/>
          <index name="PRIMARY" unique="true">
-            <column ascending="true" name="GYA_Id"/>
-            <column ascending="true" name="SKI_Id"/>
+            <column ascending="true" name="gymnast_id"/>
+            <column ascending="true" name="skills_Id"/>
          </index>
-         <index name="fk_GYA_has_SKI_idx" unique="false">
-            <column ascending="true" name="SKI_Id"/>
+         <index name="fk_gymnast_has_skills_idx" unique="false">
+            <column ascending="true" name="skills_Id"/>
          </index>
-         <index name="fk_SKI_is_mastered_by_GYA_idx" unique="false">
-            <column ascending="true" name="GYA_Id"/>
+         <index name="fk_skills_is_mastered_by_gymnast_idx" unique="false">
+            <column ascending="true" name="gymnast_id"/>
          </index>
       </table>
-      <table catalog="Skilltrakker_API" name="GYMNASTS (GYA)" numRows="0" remarks="Table that stores GYMNASTS information" type="TABLE">
-         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="Id" nullable="false" remarks="Gymnast code" size="10" type="INT" typeCode="4">
-            <child catalog="Skilltrakker_API" column="GYA_Id" foreignKey="fk_GYA_has_CCE" implied="false" onDeleteCascade="false" table="GYMNAST_CLASSES_CHALLENGES (GCCE)"/>
-            <child catalog="Skilltrakker_API" column="GYA_Id" foreignKey="fk_GYA_has_SKI" implied="false" onDeleteCascade="false" table="GYMNAST_SKILLS (GSI)"/>
-            <child catalog="Skilltrakker_API" column="GYA_Id" foreignKey="fk_GYA_is_part_of_a_CLE" implied="false" onDeleteCascade="false" table="GYMNASTS_CLASSES (GCE)"/>
+      <table catalog="Skilltrakker_API" name="gymnasts" numRows="0" remarks="Table that stores GYMNASTS information" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="Gymnast' code" size="10" type="INT" typeCode="4">
+            <child catalog="Skilltrakker_API" column="gymnasts_id" foreignKey="fk_completed_challenges_has_gymnasts" implied="false" onDeleteCascade="false" table="completed_challenges"/>
+            <child catalog="Skilltrakker_API" column="gymnast_id" foreignKey="fk_gymnast_has_skills" implied="false" onDeleteCascade="false" table="gymnast_has_skills"/>
+            <child catalog="Skilltrakker_API" column="gymnasts_id" foreignKey="fk_gymnast_has_classes" implied="false" onDeleteCascade="false" table="gymnasts_classes"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="Name" nullable="false" remarks="Gymnast name" size="45" type="VARCHAR" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="Birth_Date" nullable="false" remarks="Gymnast Birth Date" size="10" type="DATE" typeCode="91"/>
-         <column autoUpdated="false" defaultValue="0" digits="0" id="3" name="Life_Time_Score" nullable="false" remarks="Score gather by an gymnast since is member of a gym." size="10" type="INT" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="0" digits="0" id="4" name="Current_Streak_Points" nullable="false" remarks="Amount of points adquired by a Gymnas for loging everyday, is reset after 1 day of not loging." size="10" type="INT" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="Last_Streak" nullable="true" remarks="Last amount of points before the gymnast lost his streak" size="10" type="DATE" typeCode="91"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="About" nullable="true" remarks="Decription of the Gymnast" size="16777215" type="MEDIUMTEXT" typeCode="-1"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="Status" nullable="false" remarks="Gymnast status 0 Inactive 1 Active" size="1" type="BIT" typeCode="-7"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="Created" nullable="false" remarks="" size="10" type="DATE" typeCode="91"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="Updated" nullable="false" remarks="" size="10" type="DATE" typeCode="91"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="USE_id" nullable="false" remarks="User Account id in which this Gymnast is registered." size="10" type="INT" typeCode="4">
-            <parent catalog="Skilltrakker_API" column="id" foreignKey="fk_GYA_USE" implied="false" onDeleteCascade="false" table="USERS (USE)"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="false" remarks="Gymnast' name" size="45" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="birth_date" nullable="false" remarks="Gymnast' birth date" size="10" type="DATE" typeCode="91"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="3" name="life_time_score" nullable="false" remarks="Score gather by an gymnast since is member of a gym." size="10" type="INT" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="4" name="current_streak_points" nullable="false" remarks="Amount of points adquired by a Gymnas for loging everyday, is reset after 1 day of not loging." size="10" type="INT" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="last_streak" nullable="true" remarks="Last amount of points before the gymnast lost his streak" size="10" type="DATE" typeCode="91"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="about" nullable="true" remarks="Decription of the gymnast" size="16777215" type="MEDIUMTEXT" typeCode="-1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="created" nullable="false" remarks="" size="10" type="DATE" typeCode="91"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="updated" nullable="false" remarks="" size="10" type="DATE" typeCode="91"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="users_id" nullable="false" remarks="user' id which the gymnast belongs" size="10" type="INT" typeCode="4">
+            <parent catalog="Skilltrakker_API" column="id" foreignKey="fk_gymnasts_users_idx" implied="false" onDeleteCascade="false" table="users"/>
          </column>
-         <primaryKey column="Id" sequenceNumberInPK="1"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
          <index name="PRIMARY" unique="true">
-            <column ascending="true" name="Id"/>
+            <column ascending="true" name="id"/>
          </index>
-         <index name="fk_GYA_USE_idx" unique="false">
-            <column ascending="true" name="USE_id"/>
+         <index name="fk_gymnasts_users_idx" unique="false">
+            <column ascending="true" name="users_id"/>
          </index>
       </table>
-      <table catalog="Skilltrakker_API" name="GYMNASTS_CLASSES (GCE)" numRows="0" remarks="Table that stores the CLASSES in what a GYMNAST is enrolled." type="TABLE">
-         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="GYA_Id" nullable="false" remarks="Foreing key from Gymnasts table" size="10" type="INT" typeCode="4">
-            <parent catalog="Skilltrakker_API" column="Id" foreignKey="fk_GYA_is_part_of_a_CLE" implied="false" onDeleteCascade="false" table="GYMNASTS (GYA)"/>
+      <table catalog="Skilltrakker_API" name="gymnasts_classes" numRows="0" remarks="Table that stores the CLASSES in what a GYMNAST is enrolled." type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="gymnasts_id" nullable="false" remarks="Foreing key from GYMNASTS table" size="10" type="INT" typeCode="4">
+            <parent catalog="Skilltrakker_API" column="id" foreignKey="fk_gymnast_has_classes" implied="false" onDeleteCascade="false" table="gymnasts"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="CLE_Id" nullable="false" remarks="Foreing key from Classes table" size="10" type="INT" typeCode="4">
-            <parent catalog="Skilltrakker_API" column="Id" foreignKey="fk_CLE_has_GYA" implied="false" onDeleteCascade="false" table="CLASSES (CLE)"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="classes_id" nullable="false" remarks="Foreing key from CLASSES table" size="10" type="INT" typeCode="4">
+            <parent catalog="Skilltrakker_API" column="id" foreignKey="fk_class_has_gymnasts" implied="false" onDeleteCascade="false" table="classes"/>
          </column>
-         <primaryKey column="GYA_Id" sequenceNumberInPK="1"/>
-         <primaryKey column="CLE_Id" sequenceNumberInPK="2"/>
+         <primaryKey column="gymnasts_id" sequenceNumberInPK="1"/>
+         <primaryKey column="classes_id" sequenceNumberInPK="2"/>
          <index name="PRIMARY" unique="true">
-            <column ascending="true" name="GYA_Id"/>
-            <column ascending="true" name="CLE_Id"/>
+            <column ascending="true" name="gymnasts_id"/>
+            <column ascending="true" name="classes_id"/>
          </index>
-         <index name="fk_CLE_has_GYA_idx" unique="false">
-            <column ascending="true" name="GYA_Id"/>
+         <index name="fk_class_has_gymnasts_idx" unique="false">
+            <column ascending="true" name="gymnasts_id"/>
          </index>
-         <index name="fk_GYA_is_part_of_a_CLE_idx" unique="false">
-            <column ascending="true" name="CLE_Id"/>
+         <index name="fk_gymnast_has_classes_idx" unique="false">
+            <column ascending="true" name="classes_id"/>
          </index>
       </table>
-      <table catalog="Skilltrakker_API" name="GYMS (GYM)" numRows="0" remarks="Table that stores GYMS information" type="TABLE">
-         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="Id" nullable="false" remarks="GYM code" size="10" type="INT" typeCode="4">
-            <child catalog="Skilltrakker_API" column="GYM_Id" foreignKey="fk_TME_GYMS" implied="false" onDeleteCascade="false" table="TIMELINE (TME)"/>
-            <child catalog="Skilltrakker_API" column="GYM_Id" foreignKey="fk_USE_GYM" implied="false" onDeleteCascade="false" table="USERS (USE)"/>
+      <table catalog="Skilltrakker_API" name="gyms" numRows="0" remarks="Table that stores gyms information" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="GYM code" size="10" type="INT" typeCode="4">
+            <child catalog="Skilltrakker_API" column="gyms_Id" foreignKey="fk_timeline_gyms" implied="false" onDeleteCascade="false" table="timeline"/>
+            <child catalog="Skilltrakker_API" column="gyms_id" foreignKey="fk_users_gyms" implied="false" onDeleteCascade="false" table="users"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="Name" nullable="false" remarks="GYM Name" size="45" type="VARCHAR" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="Description" nullable="true" remarks="GYM Description" size="45" type="VARCHAR" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="USE_id" nullable="true" remarks="GYM Owner code" size="10" type="INT" typeCode="4">
-            <parent catalog="Skilltrakker_API" column="id" foreignKey="fk_GYM_USE" implied="false" onDeleteCascade="false" table="USERS (USE)"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="false" remarks="GYM Name" size="45" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="description" nullable="true" remarks="GYM Description" size="45" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="phone" nullable="false" remarks="GYM Phone" size="45" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="web" nullable="false" remarks="GYM web domain" size="45" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="address" nullable="true" remarks="GYM Address in JSON format" size="1073741824" type="JSON" typeCode="-1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="owner_id" nullable="false" remarks="USERS' id of the Gym Owner" size="10" type="INT" typeCode="4">
+            <parent catalog="Skilltrakker_API" column="id" foreignKey="fk_gyms_users" implied="false" onDeleteCascade="false" table="users"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="Phone" nullable="false" remarks="GYM Phone" size="45" type="VARCHAR" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="Web" nullable="false" remarks="GYM web domain" size="45" type="VARCHAR" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="Address" nullable="true" remarks="GYM Address in JSON format" size="1073741824" type="JSON" typeCode="-1"/>
-         <primaryKey column="Id" sequenceNumberInPK="1"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
          <index name="PRIMARY" unique="true">
-            <column ascending="true" name="Id"/>
+            <column ascending="true" name="id"/>
          </index>
-         <index name="fk_GYM_USE_idx" unique="false">
-            <column ascending="true" name="USE_id"/>
+         <index name="fk_gyms_users_idx" unique="false">
+            <column ascending="true" name="owner_id"/>
          </index>
       </table>
-      <table catalog="Skilltrakker_API" name="LEVELS (LVE)" numRows="0" remarks="Table that stores LEVELS description for the diferents skills." type="TABLE">
-         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="Id" nullable="false" remarks="Code of the Level" size="10" type="INT" typeCode="4">
-            <child catalog="Skilltrakker_API" column="LVE_Id" foreignKey="fk_LVE_is_part_SKI" implied="false" onDeleteCascade="false" table="SKILL_LEVEL (SLE)"/>
+      <table catalog="Skilltrakker_API" name="levels" numRows="0" remarks="Table that stores LEVELS description for the diferents skills." type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="Code of the Level" size="10" type="INT" typeCode="4">
+            <child catalog="Skilltrakker_API" column="levels_id" foreignKey="fk_level_is_part_of_skill" implied="false" onDeleteCascade="false" table="skill_has_levels"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="Level" nullable="false" remarks="Name for the Level" size="45" type="VARCHAR" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="Description" nullable="true" remarks="Description of what that level means" size="16777215" type="MEDIUMTEXT" typeCode="-1"/>
-         <primaryKey column="Id" sequenceNumberInPK="1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="level" nullable="false" remarks="Name for the Level" size="45" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="description" nullable="true" remarks="Description of what that level means" size="16777215" type="MEDIUMTEXT" typeCode="-1"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
          <index name="PRIMARY" unique="true">
-            <column ascending="true" name="Id"/>
+            <column ascending="true" name="id"/>
          </index>
       </table>
-      <table catalog="Skilltrakker_API" name="SKILL_LEVEL (SLE)" numRows="0" remarks="Table that stores LEVELS that a certain skill had.&#10;Logic Name: Skill Levels" type="TABLE">
-         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="LVE_Id" nullable="false" remarks="Code of the Level" size="10" type="INT" typeCode="4">
-            <parent catalog="Skilltrakker_API" column="Id" foreignKey="fk_LVE_is_part_SKI" implied="false" onDeleteCascade="false" table="LEVELS (LVE)"/>
+      <table catalog="Skilltrakker_API" name="normal_challenges" numRows="0" remarks="Table that stores the CHALLENGES that a CLASS had." type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="classes_id" nullable="false" remarks="Class' code" size="10" type="INT" typeCode="4">
+            <child catalog="Skilltrakker_API" column="normal_classes_id" foreignKey="fk_gymnast_has_normal_challenges" implied="false" onDeleteCascade="false" table="completed_challenges"/>
+            <parent catalog="Skilltrakker_API" column="id" foreignKey="fk_class_has_challenges" implied="false" onDeleteCascade="false" table="classes"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="SKI_Id" nullable="false" remarks="Code of the Skill" size="10" type="INT" typeCode="4">
-            <parent catalog="Skilltrakker_API" column="Id" foreignKey="fk_SKI_has_LVE" implied="false" onDeleteCascade="false" table="SKILLS (SKI)"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="challenges_id" nullable="false" remarks="Challenge' code" size="10" type="INT" typeCode="4">
+            <child catalog="Skilltrakker_API" column="normal_challenges_id" foreignKey="fk_gymnast_has_normal_challenges" implied="false" onDeleteCascade="false" table="completed_challenges"/>
+            <parent catalog="Skilltrakker_API" column="id" foreignKey="fk_challenge_is_in_class_" implied="false" onDeleteCascade="false" table="challenges"/>
          </column>
-         <column autoUpdated="false" defaultValue="0" digits="0" id="2" name="Secuence" nullable="true" remarks="The Skill has a secuence?&#10;0 No&#10;1 Yes" size="1" type="BIT" typeCode="-7"/>
-         <primaryKey column="LVE_Id" sequenceNumberInPK="1"/>
-         <primaryKey column="SKI_Id" sequenceNumberInPK="2"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="is_active" nullable="false" remarks="Status of the Challenge&#10;0 Inactive&#10;1 Active" size="1" type="BIT" typeCode="-7"/>
+         <primaryKey column="classes_id" sequenceNumberInPK="1"/>
+         <primaryKey column="challenges_id" sequenceNumberInPK="2"/>
          <index name="PRIMARY" unique="true">
-            <column ascending="true" name="LVE_Id"/>
-            <column ascending="true" name="SKI_Id"/>
+            <column ascending="true" name="classes_id"/>
+            <column ascending="true" name="challenges_id"/>
          </index>
-         <index name="fk_LVE_is_part_SKI_idx" unique="false">
-            <column ascending="true" name="SKI_Id"/>
+         <index name="fk_challenge_is_in_class_idx" unique="false">
+            <column ascending="true" name="classes_id"/>
          </index>
-         <index name="fk_SKI_has_LVE_idx" unique="false">
-            <column ascending="true" name="LVE_Id"/>
+         <index name="fk_class_has_challenges_idx" unique="false">
+            <column ascending="true" name="challenges_id"/>
          </index>
       </table>
-      <table catalog="Skilltrakker_API" name="SKILLS (SKI)" numRows="0" remarks="Table that stores SKILLS that a GYMNAST can get." type="TABLE">
-         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="Id" nullable="false" remarks="Code of the Skill" size="10" type="INT" typeCode="4">
-            <child catalog="Skilltrakker_API" column="SKI_Id" foreignKey="fk_SKI_is_mastered_by_GYA" implied="false" onDeleteCascade="false" table="GYMNAST_SKILLS (GSI)"/>
-            <child catalog="Skilltrakker_API" column="SKI_Id" foreignKey="fk_SKI_has_LVE" implied="false" onDeleteCascade="false" table="SKILL_LEVEL (SLE)"/>
+      <table catalog="Skilltrakker_API" name="skill_has_levels" numRows="0" remarks="Table that stores LEVELS that a certain skill had.&#10;Logic Name: Skill Levels" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="levels_id" nullable="false" remarks="Code of the Level" size="10" type="INT" typeCode="4">
+            <parent catalog="Skilltrakker_API" column="id" foreignKey="fk_level_is_part_of_skill" implied="false" onDeleteCascade="false" table="levels"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="Name" nullable="false" remarks="Name of the skill" size="45" type="VARCHAR" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="Description" nullable="true" remarks="Description of the Skill" size="16777215" type="MEDIUMTEXT" typeCode="-1"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="Category" nullable="false" remarks="category to which the event belongs" size="45" type="VARCHAR" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="0" digits="0" id="4" name="Certificate" nullable="true" remarks="Boolean value to know the status" size="1" type="BIT" typeCode="-7"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="EVE_id" nullable="false" remarks="Code of the Event" size="10" type="INT" typeCode="4">
-            <parent catalog="Skilltrakker_API" column="Id" foreignKey="fk_SKI_EVE" implied="false" onDeleteCascade="false" table="EVENTS (EVE)"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="skills_id" nullable="false" remarks="Code of the Skill" size="10" type="INT" typeCode="4">
+            <parent catalog="Skilltrakker_API" column="id" foreignKey="fk_SKI_has_LVE" implied="false" onDeleteCascade="false" table="skills"/>
          </column>
-         <primaryKey column="Id" sequenceNumberInPK="1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="secuence" nullable="true" remarks="The Skill has a secuence?&#10;0 No&#10;1 Yes" size="1" type="BIT" typeCode="-7"/>
+         <primaryKey column="levels_id" sequenceNumberInPK="1"/>
+         <primaryKey column="skills_id" sequenceNumberInPK="2"/>
          <index name="PRIMARY" unique="true">
-            <column ascending="true" name="Id"/>
+            <column ascending="true" name="levels_id"/>
+            <column ascending="true" name="skills_id"/>
          </index>
-         <index name="fk_SKI_EVE_idx" unique="false">
-            <column ascending="true" name="EVE_id"/>
+         <index name="fk_level_is_part_of_skill_idx" unique="false">
+            <column ascending="true" name="skills_id"/>
+         </index>
+         <index name="fk_skill_has_level_idx" unique="false">
+            <column ascending="true" name="levels_id"/>
          </index>
       </table>
-      <table catalog="Skilltrakker_API" name="TIMELINE (TME)" numRows="0" remarks="Table that stores the Timeline for events in format JSON" type="TABLE">
-         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="Id" nullable="false" remarks="" size="10" type="INT" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="DATA" nullable="true" remarks="Content of the Timeline in format JSON" size="1073741824" type="JSON" typeCode="-1"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="GYM_Id" nullable="false" remarks="Code of the Gym owner of this Timeline" size="10" type="INT" typeCode="4">
-            <parent catalog="Skilltrakker_API" column="Id" foreignKey="fk_TME_GYMS" implied="false" onDeleteCascade="false" table="GYMS (GYM)"/>
+      <table catalog="Skilltrakker_API" name="skills" numRows="0" remarks="Table that stores SKILLS that a GYMNAST can get." type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="Code of the Skill" size="10" type="INT" typeCode="4">
+            <child catalog="Skilltrakker_API" column="skills_Id" foreignKey="fk_skills_is_mastered_by_gymnast" implied="false" onDeleteCascade="false" table="gymnast_has_skills"/>
+            <child catalog="Skilltrakker_API" column="skills_id" foreignKey="fk_SKI_has_LVE" implied="false" onDeleteCascade="false" table="skill_has_levels"/>
          </column>
-         <primaryKey column="Id" sequenceNumberInPK="1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="false" remarks="Name of the skill" size="45" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="description" nullable="true" remarks="Description of the Skill" size="16777215" type="MEDIUMTEXT" typeCode="-1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="category" nullable="false" remarks="category to which the event belongs" size="45" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="certificate" nullable="true" remarks="Boolean value to know the status" size="1" type="BIT" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="events_id" nullable="false" remarks="Code of the Event" size="10" type="INT" typeCode="4">
+            <parent catalog="Skilltrakker_API" column="id" foreignKey="fk_skills_events" implied="false" onDeleteCascade="false" table="events"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
          <index name="PRIMARY" unique="true">
-            <column ascending="true" name="Id"/>
+            <column ascending="true" name="id"/>
          </index>
-         <index name="fk_TME_GYMS_idx" unique="false">
-            <column ascending="true" name="GYM_Id"/>
+         <index name="fk_skills_events_idx" unique="false">
+            <column ascending="true" name="events_id"/>
          </index>
       </table>
-      <table catalog="Skilltrakker_API" name="USERS (USE)" numRows="0" remarks="Table that stores USERS information" type="TABLE">
-         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="USER code" size="10" type="INT" typeCode="4">
-            <child catalog="Skilltrakker_API" column="USE_id" foreignKey="fk_GYA_USE" implied="false" onDeleteCascade="false" table="GYMNASTS (GYA)"/>
-            <child catalog="Skilltrakker_API" column="USE_id" foreignKey="fk_GYM_USE" implied="false" onDeleteCascade="false" table="GYMS (GYM)"/>
+      <table catalog="Skilltrakker_API" name="timeline" numRows="0" remarks="Table that stores the Timeline for events in format JSON" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="Code for a gym' timeline" size="10" type="INT" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="data" nullable="true" remarks="Content of the timeline in format JSON" size="1073741824" type="JSON" typeCode="-1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="gyms_Id" nullable="false" remarks="Id of the gym" size="10" type="INT" typeCode="4">
+            <parent catalog="Skilltrakker_API" column="id" foreignKey="fk_timeline_gyms" implied="false" onDeleteCascade="false" table="gyms"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="username" nullable="false" remarks="USER username for login into the system" size="45" type="VARCHAR" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="email" nullable="false" remarks="USER email address" size="45" type="VARCHAR" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="password" nullable="false" remarks="USER password for loging into the system" size="45" type="VARCHAR" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="Stripe_Id" nullable="true" remarks="USER Code for Stripe plataform" size="45" type="VARCHAR" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="Stripe_Email" nullable="true" remarks="USER Email in Stripe Plataform" size="45" type="VARCHAR" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="Stripe_Key" nullable="true" remarks="USER Stripe Key" size="45" type="VARCHAR" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="Status" nullable="false" remarks="USER Status 0 Inactive 1 Active" size="1" type="BIT" typeCode="-7"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="GYM_Id" nullable="false" remarks="Gym in which the USER is enrolled" size="10" type="INT" typeCode="4">
-            <parent catalog="Skilltrakker_API" column="Id" foreignKey="fk_USE_GYM" implied="false" onDeleteCascade="false" table="GYMS (GYM)"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="fk_timeline_gyms_idx" unique="false">
+            <column ascending="true" name="gyms_Id"/>
+         </index>
+      </table>
+      <table catalog="Skilltrakker_API" name="users" numRows="0" remarks="Table that stores USERS information" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="user' code" size="10" type="INT" typeCode="4">
+            <child catalog="Skilltrakker_API" column="users_id" foreignKey="fk_gymnasts_users_idx" implied="false" onDeleteCascade="false" table="gymnasts"/>
+            <child catalog="Skilltrakker_API" column="owner_id" foreignKey="fk_gyms_users" implied="false" onDeleteCascade="false" table="gyms"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="username" nullable="false" remarks="user' username for login into the system" size="45" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="email" nullable="false" remarks="user' email address" size="45" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="password" nullable="false" remarks="user' password for loging into the system" size="45" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="stripe_Id" nullable="true" remarks="user' code for stripe plataform" size="45" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="stripe_email" nullable="true" remarks="user' email in stripe plataform" size="45" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="stripe_key" nullable="true" remarks="user' stripe key" size="45" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="gyms_id" nullable="false" remarks="gym' id which the user belongs" size="10" type="INT" typeCode="4">
+            <parent catalog="Skilltrakker_API" column="id" foreignKey="fk_users_gyms" implied="false" onDeleteCascade="false" table="gyms"/>
          </column>
          <primaryKey column="id" sequenceNumberInPK="1"/>
          <index name="PRIMARY" unique="true">
@@ -280,8 +304,8 @@
          <index name="email_UNIQUE" unique="true">
             <column ascending="true" name="email"/>
          </index>
-         <index name="fk_USE_GYM_idx" unique="false">
-            <column ascending="true" name="GYM_Id"/>
+         <index name="fk_users_gyms_idx" unique="false">
+            <column ascending="true" name="gyms_id"/>
          </index>
          <index name="username_UNIQUE" unique="true">
             <column ascending="true" name="username"/>

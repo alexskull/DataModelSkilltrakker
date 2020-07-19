@@ -1,4 +1,5 @@
--- Model: API Skilltrakker    Version: 1.0
+-- Sat 18 Jul 2020 07:49:01 PM -05
+-- Model: API Skilltrakker    Version: 1.1
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
@@ -7,349 +8,378 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema Skilltrakker_API
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `Skilltrakker_API` ;
+DROP SCHEMA IF EXISTS Skilltrakker_API ;
 
 -- -----------------------------------------------------
 -- Schema Skilltrakker_API
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `Skilltrakker_API` DEFAULT CHARACTER SET utf8 ;
-USE `Skilltrakker_API` ;
+CREATE SCHEMA IF NOT EXISTS Skilltrakker_API DEFAULT CHARACTER SET utf8 ;
+USE Skilltrakker_API ;
 
 -- -----------------------------------------------------
--- Table `Skilltrakker_API`.`USERS (USE)`
+-- Table users
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Skilltrakker_API`.`USERS (USE)` ;
+DROP TABLE IF EXISTS users ;
 
-CREATE TABLE IF NOT EXISTS `Skilltrakker_API`.`USERS (USE)` (
-  `id` INT NOT NULL AUTO_INCREMENT COMMENT 'USER code',
-  `username` VARCHAR(45) NOT NULL COMMENT 'USER username for login into the system',
-  `email` VARCHAR(45) NOT NULL COMMENT 'USER email address',
-  `password` VARCHAR(45) NOT NULL COMMENT 'USER password for loging into the system',
-  `Stripe_Id` VARCHAR(45) NULL DEFAULT NULL COMMENT 'USER Code for Stripe plataform',
-  `Stripe_Email` VARCHAR(45) NULL DEFAULT NULL COMMENT 'USER Email in Stripe Plataform',
-  `Stripe_Key` VARCHAR(45) NULL DEFAULT NULL COMMENT 'USER Stripe Key',
-  `Status` TINYINT(1) NOT NULL COMMENT 'USER Status 0 Inactive 1 Active',
-  `GYM_Id` INT NOT NULL COMMENT 'Gym in which the USER is enrolled',
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC),
-  UNIQUE INDEX `username_UNIQUE` (`username` ASC),
-  INDEX `fk_USE_GYM_idx` (`GYM_Id` ASC))
+CREATE TABLE IF NOT EXISTS users (
+  id INT NOT NULL AUTO_INCREMENT COMMENT 'user\' code',
+  username VARCHAR(45) NOT NULL COMMENT 'user\' username for login into the system',
+  email VARCHAR(45) NOT NULL COMMENT 'user\' email address',
+  password VARCHAR(45) NOT NULL COMMENT 'user\' password for loging into the system',
+  stripe_Id VARCHAR(45) NULL DEFAULT NULL COMMENT 'user\' code for stripe plataform',
+  stripe_email VARCHAR(45) NULL DEFAULT NULL COMMENT 'user\' email in stripe plataform',
+  stripe_key VARCHAR(45) NULL DEFAULT NULL COMMENT 'user\' stripe key',
+  gyms_id INT NOT NULL COMMENT 'gym\' id which the user belongs',
+  PRIMARY KEY (id),
+  UNIQUE INDEX email_UNIQUE (email ASC),
+  UNIQUE INDEX username_UNIQUE (username ASC),
+  INDEX fk_users_gyms_idx (gyms_id ASC))
 ENGINE = InnoDB
 COMMENT = 'Table that stores USERS information';
 
--- -----------------------------------------------------
--- Table `Skilltrakker_API`.`GYMS (GYM)`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `Skilltrakker_API`.`GYMS (GYM)` ;
 
-CREATE TABLE IF NOT EXISTS `Skilltrakker_API`.`GYMS (GYM)` (
-  `Id` INT NOT NULL AUTO_INCREMENT COMMENT 'GYM code',
-  `Name` VARCHAR(45) NOT NULL COMMENT 'GYM Name',
-  `Description` VARCHAR(45) NULL DEFAULT NULL COMMENT 'GYM Description',
-  `USE_id` INT NULL COMMENT 'GYM Owner code',
-  `Phone` VARCHAR(45) NOT NULL COMMENT 'GYM Phone',
-  `Web` VARCHAR(45) NOT NULL COMMENT 'GYM web domain',
-  `Address` JSON NULL DEFAULT NULL COMMENT 'GYM Address in JSON format',
-  PRIMARY KEY (`Id`),
-  INDEX `fk_GYM_USE_idx` (`USE_id` ASC))
+-- -----------------------------------------------------
+-- Table gyms
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS gyms ;
+
+CREATE TABLE IF NOT EXISTS gyms (
+  id INT NOT NULL AUTO_INCREMENT COMMENT 'GYM code',
+  name VARCHAR(45) NOT NULL COMMENT 'GYM Name',
+  description VARCHAR(45) NULL DEFAULT NULL COMMENT 'GYM Description',
+  phone VARCHAR(45) NOT NULL COMMENT 'GYM Phone',
+  web VARCHAR(45) NOT NULL COMMENT 'GYM web domain',
+  address JSON NULL DEFAULT NULL COMMENT 'GYM Address in JSON format',
+  owner_id INT NOT NULL COMMENT 'USERS\' id of the Gym Owner',
+  PRIMARY KEY (id),
+  INDEX fk_gyms_users_idx (owner_id ASC))
 ENGINE = InnoDB
-COMMENT = 'Table that stores GYMS information';
-
+COMMENT = 'Table that stores gyms information';
 
 -- -----------------------------------------------------
--- Table `Skilltrakker_API`.`GYMNASTS (GYA)`
+-- Table gymnasts
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Skilltrakker_API`.`GYMNASTS (GYA)` ;
+DROP TABLE IF EXISTS gymnasts ;
 
-CREATE TABLE IF NOT EXISTS `Skilltrakker_API`.`GYMNASTS (GYA)` (
-  `Id` INT NOT NULL AUTO_INCREMENT COMMENT 'Gymnast code',
-  `Name` VARCHAR(45) NOT NULL COMMENT 'Gymnast name',
-  `Birth_Date` DATE NOT NULL COMMENT 'Gymnast Birth Date',
-  `Life_Time_Score` INT NOT NULL DEFAULT 0 COMMENT 'Score gather by an gymnast since is member of a gym.',
-  `Current_Streak_Points` INT NOT NULL DEFAULT 0 COMMENT 'Amount of points adquired by a Gymnas for loging everyday, is reset after 1 day of not loging.',
-  `Last_Streak` DATE NULL DEFAULT NULL COMMENT 'Last amount of points before the gymnast lost his streak',
-  `About` MEDIUMTEXT NULL DEFAULT NULL COMMENT 'Decription of the Gymnast\n',
-  `Status` TINYINT(1) NOT NULL COMMENT 'Gymnast status 0 Inactive 1 Active',
-  `Created` DATE NOT NULL,
-  `Updated` DATE NOT NULL,
-  `USE_id` INT NOT NULL COMMENT 'User Account id in which this Gymnast is registered.',
-  PRIMARY KEY (`Id`),
-  INDEX `fk_GYA_USE_idx` (`USE_id` ASC))
+CREATE TABLE IF NOT EXISTS gymnasts (
+  id INT NOT NULL AUTO_INCREMENT COMMENT 'Gymnast\' code',
+  name VARCHAR(45) NOT NULL COMMENT 'Gymnast\' name',
+  birth_date DATE NOT NULL COMMENT 'Gymnast\' birth date',
+  life_time_score INT NOT NULL DEFAULT 0 COMMENT 'Score gather by an gymnast since is member of a gym.',
+  current_streak_points INT NOT NULL DEFAULT 0 COMMENT 'Amount of points adquired by a Gymnas for loging everyday, is reset after 1 day of not loging.',
+  last_streak DATE NULL DEFAULT NULL COMMENT 'Last amount of points before the gymnast lost his streak',
+  about MEDIUMTEXT NULL DEFAULT NULL COMMENT 'Decription of the gymnast',
+  created DATE NOT NULL,
+  updated DATE NOT NULL,
+  users_id INT NOT NULL COMMENT 'user\' id which the gymnast belongs',
+  PRIMARY KEY (id),
+  INDEX fk_gymnasts_users_idx (users_id ASC))  
 ENGINE = InnoDB
 COMMENT = 'Table that stores GYMNASTS information';
 
-
 -- -----------------------------------------------------
--- Table `Skilltrakker_API`.`CLASSES (CLE)`
+-- Table classes
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Skilltrakker_API`.`CLASSES (CLE)` ;
+DROP TABLE IF EXISTS classes ;
 
-CREATE TABLE IF NOT EXISTS `Skilltrakker_API`.`CLASSES (CLE)` (
-  `Id` INT NOT NULL AUTO_INCREMENT COMMENT 'Id of the Class\n',
-  `Name` VARCHAR(45) NOT NULL COMMENT 'Name of the Class',
-  `Description` MEDIUMTEXT NULL DEFAULT NULL COMMENT 'Description of the Class',
-  PRIMARY KEY (`Id`))
+CREATE TABLE IF NOT EXISTS classes (
+  id INT NOT NULL AUTO_INCREMENT COMMENT 'Class\' id',
+  name VARCHAR(45) NOT NULL COMMENT 'Class\' name',
+  description MEDIUMTEXT NULL DEFAULT NULL COMMENT 'Class\' description',
+  PRIMARY KEY (id))
 ENGINE = InnoDB
-COMMENT = 'Table that stores CLASSES information';
+COMMENT = 'Table that stores CLASSES\' information';
 
 
 -- -----------------------------------------------------
--- Table `Skilltrakker_API`.`GYMNASTS_CLASSES (GCE)`
+-- Table challenges
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Skilltrakker_API`.`GYMNASTS_CLASSES (GCE)` ;
+DROP TABLE IF EXISTS challenges ;
 
-CREATE TABLE IF NOT EXISTS `Skilltrakker_API`.`GYMNASTS_CLASSES (GCE)` (
-  `GYA_Id` INT NOT NULL COMMENT 'Foreing key from Gymnasts table',
-  `CLE_Id` INT NOT NULL COMMENT 'Foreing key from Classes table',
-  PRIMARY KEY (`GYA_Id`, `CLE_Id`),
-  INDEX `fk_GYA_is_part_of_a_CLE_idx` (`CLE_Id` ASC),
-  INDEX `fk_CLE_has_GYA_idx` (`GYA_Id` ASC))
+CREATE TABLE IF NOT EXISTS challenges (
+  id INT NOT NULL AUTO_INCREMENT COMMENT 'challenge\' id',
+  name VARCHAR(45) NOT NULL COMMENT 'challenge\' name',
+  description MEDIUMTEXT NOT NULL COMMENT 'challenge\' description',
+  points INT NULL DEFAULT NULL COMMENT 'challenge\' points',
+  PRIMARY KEY (id))
 ENGINE = InnoDB
-COMMENT = 'Table that stores the CLASSES in what a GYMNAST is enrolled.';
+COMMENT = 'Table that stores CHALLENGES\' information';
 
 
 -- -----------------------------------------------------
--- Table `Skilltrakker_API`.`CHALLENGES (CHE)`
+-- Table normal_challenges
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Skilltrakker_API`.`CHALLENGES (CHE)` ;
+DROP TABLE IF EXISTS normal_challenges ;
 
-CREATE TABLE IF NOT EXISTS `Skilltrakker_API`.`CHALLENGES (CHE)` (
-  `Id` INT NOT NULL AUTO_INCREMENT,
-  `Name` VARCHAR(45) NOT NULL,
-  `Description` MEDIUMTEXT NOT NULL,
-  `Points` INT NULL DEFAULT NULL,
-  PRIMARY KEY (`Id`))
-ENGINE = InnoDB
-COMMENT = 'Table that stores CHALLENGES information';
-
-
--- -----------------------------------------------------
--- Table `Skilltrakker_API`.`CLASSES_CHALLENGES (CCE)`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `Skilltrakker_API`.`CLASSES_CHALLENGES (CCE)` ;
-
-CREATE TABLE IF NOT EXISTS `Skilltrakker_API`.`CLASSES_CHALLENGES (CCE)` (
-  `CLE_Id` INT NOT NULL COMMENT 'Code of the Class',
-  `CHE_Id` INT NOT NULL COMMENT 'Code of the Challenge',
-  `Is_Daily?` TINYINT(1) NOT NULL COMMENT 'Tells if a Challenge is Daily or not 0 No 1 Yes',
-  `Is_Active?` TINYINT(1) NOT NULL COMMENT 'Status of the Challenge 0 Inactive 1 Active',
-  `Daily_date` DATE NULL DEFAULT NULL COMMENT 'If the Challenge is Daily, This field is the day in wich\nhad to be completed.',
-  PRIMARY KEY (`CLE_Id`, `CHE_Id`, `Is_Daily?`),
-  INDEX `fk_CLE_has_CHE_idx` (`CHE_Id` ASC),
-  INDEX `fk_CHE_is_in_CLE_idx` (`CLE_Id` ASC))
+CREATE TABLE IF NOT EXISTS normal_challenges (
+  classes_id INT NOT NULL COMMENT 'Class\' code',
+  challenges_id INT NOT NULL COMMENT 'Challenge\' code',
+  is_active TINYINT(1) NOT NULL COMMENT 'Status of the Challenge\n0 Inactive\n1 Active',
+  PRIMARY KEY (classes_id, challenges_id),
+  INDEX fk_class_has_challenges_idx (challenges_id ASC),
+  INDEX fk_challenge_is_in_class_idx (classes_id ASC))  
 ENGINE = InnoDB
 COMMENT = 'Table that stores the CHALLENGES that a CLASS had.';
 
-
 -- -----------------------------------------------------
--- Table `Skilltrakker_API`.`LEVELS (LVE)`
+-- Table levels
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Skilltrakker_API`.`LEVELS (LVE)` ;
+DROP TABLE IF EXISTS levels ;
 
-CREATE TABLE IF NOT EXISTS `Skilltrakker_API`.`LEVELS (LVE)` (
-  `Id` INT NOT NULL AUTO_INCREMENT COMMENT 'Code of the Level',
-  `Level` VARCHAR(45) NOT NULL COMMENT 'Name for the Level',
-  `Description` MEDIUMTEXT NULL DEFAULT NULL COMMENT 'Description of what that level means',
-  PRIMARY KEY (`Id`))
+CREATE TABLE IF NOT EXISTS levels (
+  id INT NOT NULL AUTO_INCREMENT COMMENT 'Code of the Level',
+  level VARCHAR(45) NOT NULL COMMENT 'Name for the Level',
+  description MEDIUMTEXT NULL DEFAULT NULL COMMENT 'Description of what that level means',
+  PRIMARY KEY (id))
 ENGINE = InnoDB
 COMMENT = 'Table that stores LEVELS description for the diferents skills.';
 
 
 -- -----------------------------------------------------
--- Table `Skilltrakker_API`.`EVENTS (EVE)`
+-- Table events
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Skilltrakker_API`.`EVENTS (EVE)` ;
+DROP TABLE IF EXISTS events ;
 
-CREATE TABLE IF NOT EXISTS `Skilltrakker_API`.`EVENTS (EVE)` (
-  `Id` INT NOT NULL COMMENT 'Code of the Event',
-  `Name` VARCHAR(45) NULL COMMENT 'Name of the Event',
-  `Abbrev` VARCHAR(45) NULL COMMENT 'Abbreviation of the Event	',
-  `Active` TINYINT(1) DEFAULT 0 COMMENT 'Status of the event 0 Inactive 1 Active',
-  PRIMARY KEY (`Id`))
+CREATE TABLE IF NOT EXISTS events (
+  id INT NOT NULL COMMENT 'Code of the Event',
+  name VARCHAR(45) NULL COMMENT 'Name of the Event',
+  abbrev VARCHAR(45) NULL COMMENT 'Abbreviation of the Event	',
+  PRIMARY KEY (id))
 ENGINE = InnoDB
 COMMENT = 'Table that stores the EVENTS in wich a skill is executed, if they are active and the respective abreviation.';
 
 
 -- -----------------------------------------------------
--- Table `Skilltrakker_API`.`SKILLS (SKI)`
+-- Table skills
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Skilltrakker_API`.`SKILLS (SKI)` ;
+DROP TABLE IF EXISTS skills ;
 
-CREATE TABLE IF NOT EXISTS `Skilltrakker_API`.`SKILLS (SKI)` (
-  `Id` INT NOT NULL AUTO_INCREMENT COMMENT 'Code of the Skill',
-  `Name` VARCHAR(45) NOT NULL COMMENT 'Name of the skill',
-  `Description` MEDIUMTEXT NULL COMMENT 'Description of the Skill',
-  `Category` VARCHAR(45) NOT NULL COMMENT 'category to which the event belongs',
-  `Certificate` TINYINT(1) DEFAULT 0 COMMENT 'Boolean value to know the status',
-  `EVE_id` INT NOT NULL COMMENT 'Code of the Event',
-  PRIMARY KEY (`Id`),
-  INDEX `fk_SKI_EVE_idx` (`EVE_id` ASC))
+CREATE TABLE IF NOT EXISTS skills (
+  id INT NOT NULL AUTO_INCREMENT COMMENT 'Code of the Skill',
+  name VARCHAR(45) NOT NULL COMMENT 'Name of the skill',
+  description MEDIUMTEXT NULL COMMENT 'Description of the Skill',
+  category VARCHAR(45) NOT NULL COMMENT 'category to which the event belongs',
+  certificate TINYINT(1) GENERATED ALWAYS AS (0)  COMMENT 'Boolean value to know the status',
+  events_id INT NOT NULL COMMENT 'Code of the Event',
+  PRIMARY KEY (id),
+  INDEX fk_skills_events_idx (events_id ASC))  
 ENGINE = InnoDB
 COMMENT = 'Table that stores SKILLS that a GYMNAST can get.';
 
 
 -- -----------------------------------------------------
--- Table `Skilltrakker_API`.`GYMNAST_SKILLS (GSI)`
+-- Table gymnast_has_skills
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Skilltrakker_API`.`GYMNAST_SKILLS (GSI)` ;
+DROP TABLE IF EXISTS gymnast_has_skills ;
 
-CREATE TABLE IF NOT EXISTS `Skilltrakker_API`.`GYMNAST_SKILLS (GSI)` (
-  `GYA_Id` INT NOT NULL COMMENT 'Gymnast code',
-  `SKI_Id` INT NOT NULL COMMENT 'Skill code',
-  `Progress_status` VARCHAR(45) NULL COMMENT 'Tells the Gymnast actual status in learning the skill',
-  `Coach_Verify` JSON NULL COMMENT 'Verification from a coach when an gymnast set the level for a skill',
-  `Timestamp` DATE NOT NULL,
-  `Interactions` JSON NULL COMMENT 'Interactions for the skill update by others gymnasts\nHi 5\nComments\nApplasuse\nIn JSON Format',
-  PRIMARY KEY (`GYA_Id`, `SKI_Id`),
-  INDEX `fk_GYA_has_SKI_idx` (`SKI_Id` ASC),
-  INDEX `fk_SKI_is_mastered_by_GYA_idx` (`GYA_Id` ASC))
+CREATE TABLE IF NOT EXISTS gymnast_has_skills (
+  gymnast_id INT NOT NULL COMMENT 'Gymnast\' code',
+  skills_Id INT NOT NULL COMMENT 'Skill\' code',
+  progress_status VARCHAR(45) NULL COMMENT 'Tells the gymnast actual status in learning the skill',
+  coach_verify JSON NULL COMMENT 'Verification from a coach when an gymnast set the level for a skill',
+  timestamp DATE NOT NULL COMMENT 'Date when a gymnast gets the skill',
+  interactions JSON NULL COMMENT 'Interactions for the skill update by others gymnasts\nHi 5\nComments\nApplasuse\nIn JSON Format',
+  PRIMARY KEY (gymnast_id, skills_Id),
+  INDEX fk_gymnast_has_skills_idx (skills_Id ASC),
+  INDEX fk_skills_is_mastered_by_gymnast_idx (gymnast_id ASC))
 ENGINE = InnoDB
 COMMENT = 'Table that stores SKILLS that a GYMNAST get.';
 
-
 -- -----------------------------------------------------
--- Table `Skilltrakker_API`.`SKILL_LEVEL (SLE)`
+-- Table skill_has_levels
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Skilltrakker_API`.`SKILL_LEVEL (SLE)` ;
+DROP TABLE IF EXISTS skill_has_levels ;
 
-CREATE TABLE IF NOT EXISTS `Skilltrakker_API`.`SKILL_LEVEL (SLE)` (
-  `LVE_Id` INT NOT NULL COMMENT 'Code of the Level',
-  `SKI_Id` INT NOT NULL COMMENT 'Code of the Skill',
-  `Secuence` TINYINT(1) DEFAULT 0 COMMENT 'The Skill has a secuence?\n0 No\n1 Yes',
-  PRIMARY KEY (`LVE_Id`, `SKI_Id`),
-  INDEX `fk_LVE_is_part_SKI_idx` (`SKI_Id` ASC),
-  INDEX `fk_SKI_has_LVE_idx` (`LVE_Id` ASC))
+CREATE TABLE IF NOT EXISTS skill_has_levels (
+  levels_id INT NOT NULL COMMENT 'Code of the Level',
+  skills_id INT NOT NULL COMMENT 'Code of the Skill',
+  secuence TINYINT(1) GENERATED ALWAYS AS (0)  COMMENT 'The Skill has a secuence?\n0 No\n1 Yes',
+  PRIMARY KEY (levels_id, skills_id),
+  INDEX fk_level_is_part_of_skill_idx (skills_id ASC),
+  INDEX fk_skill_has_level_idx (levels_id ASC))
 ENGINE = InnoDB
 COMMENT = 'Table that stores LEVELS that a certain skill had.\nLogic Name: Skill Levels';
 
-
 -- -----------------------------------------------------
--- Table `Skilltrakker_API`.`GYMNAST_CLASSES_CHALLENGES (GCCE)`
+-- Table timeline
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Skilltrakker_API`.`GYMNAST_CLASSES_CHALLENGES (GCCE)` ;
+DROP TABLE IF EXISTS timeline ;
 
-CREATE TABLE IF NOT EXISTS `Skilltrakker_API`.`GYMNAST_CLASSES_CHALLENGES (GCCE)` (
-  `GYA_Id` INT NOT NULL COMMENT 'FK of Gymnast',
-  `CCE_CLE_Id` INT NOT NULL COMMENT 'Part of the composite foreign key\nCode of the Class',
-  `CCE_CHE_Id` INT NOT NULL COMMENT 'Part of the composite foreign key\nCode of the Challenge',
-  `CCE_Is_Daily?` TINYINT(1) NOT NULL COMMENT 'Part of the composite foreign key\nBoolean value to kown if is a Daily challenge.',
-  `Completion` TINYINT(1) DEFAULT 0 COMMENT 'Status of the Challenge\n0 inactive\n1 Active',
-  `Date_of_Completion` DATE NULL COMMENT 'Date in wich the challenge was completed',
-  `Interactions` JSON NULL COMMENT 'Interactions for the completed challenged by others gymnasts\nHi 5\nComments\nApplasuse\nIn JSON Format',
-  PRIMARY KEY (`GYA_Id`, `CCE_CLE_Id`, `CCE_CHE_Id`, `CCE_Is_Daily?`),
-  INDEX `fk_GYA_has_CCE_idx` (`CCE_CLE_Id` ASC, `CCE_CHE_Id` ASC, `CCE_Is_Daily?` ASC),
-  INDEX `fk_CCE_are_done_by_GYA_idx` (`GYA_Id` ASC))
-ENGINE = InnoDB
-COMMENT = 'Table that stores the CHALLENGES that a GYMNAST has completed.';
-
-
--- -----------------------------------------------------
--- Table `Skilltrakker_API`.`TIMELINE (TME)`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `Skilltrakker_API`.`TIMELINE (TME)` ;
-
-CREATE TABLE IF NOT EXISTS `Skilltrakker_API`.`TIMELINE (TME)` (
-  `Id` INT NOT NULL,
-  `DATA` JSON NULL COMMENT 'Content of the Timeline in format JSON\n',
-  `GYM_Id` INT NOT NULL COMMENT 'Code of the Gym owner of this Timeline',
-  PRIMARY KEY (`Id`),
-  INDEX `fk_TME_GYMS_idx` (`GYM_Id` ASC))
+CREATE TABLE IF NOT EXISTS timeline (
+  id INT NOT NULL COMMENT 'Code for a gym\' timeline',
+  data JSON NULL COMMENT 'Content of the timeline in format JSON\n',
+  gyms_Id INT NOT NULL COMMENT 'Id of the gym',
+  PRIMARY KEY (id),
+  INDEX fk_timeline_gyms_idx (gyms_Id ASC))
 ENGINE = InnoDB
 COMMENT = 'Table that stores the Timeline for events in format JSON';
 
--- --------------------------------------------------
--- Adding FK
--- --------------------------------------------------
 
-ALTER TABLE `Skilltrakker_API`.`USERS (USE)` ADD CONSTRAINT `fk_USE_GYM`
-    FOREIGN KEY (`GYM_Id`)
-    REFERENCES `Skilltrakker_API`.`GYMS (GYM)` (`Id`)
+-- -----------------------------------------------------
+-- Table gymnasts_classes
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS gymnasts_classes ;
+
+CREATE TABLE IF NOT EXISTS gymnasts_classes (
+  gymnasts_id INT NOT NULL COMMENT 'Foreing key from GYMNASTS table',
+  classes_id INT NOT NULL COMMENT 'Foreing key from CLASSES table',
+  PRIMARY KEY (gymnasts_id, classes_id),
+  INDEX fk_gymnast_has_classes_idx (classes_id ASC),
+  INDEX fk_class_has_gymnasts_idx (gymnasts_id ASC))
+ENGINE = InnoDB
+COMMENT = 'Table that stores the CLASSES in what a GYMNAST is enrolled.';
+
+-- -----------------------------------------------------
+-- Table daily_challenges
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS daily_challenges ;
+
+CREATE TABLE IF NOT EXISTS daily_challenges (
+  classes_id INT NOT NULL COMMENT 'Class\' code',
+  challenges_id INT NOT NULL COMMENT 'Challenge\' code',
+  date_challenge DATE NOT NULL COMMENT 'Date in wich the challenge has to be completed.',
+  PRIMARY KEY (classes_id, challenges_id, date_challenge),
+  INDEX fk_class_has_daily_challenges_idx (challenges_id ASC),
+  INDEX fk_challenge_has_classes_idx (classes_id ASC))
+ENGINE = InnoDB
+COMMENT = 'Table that stores the daily challenges that a class had.';
+
+
+-- -----------------------------------------------------
+-- Table completed_challenges
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS completed_challenges ;
+
+CREATE TABLE IF NOT EXISTS completed_challenges (
+  id INT NOT NULL AUTO_INCREMENT COMMENT 'Auto increment code for challenges',
+  gymnasts_id INT NOT NULL COMMENT 'gymnast\' code',
+  daily_classes_id INT NULL COMMENT 'Foreing key from DAILY CHALLENGES table',
+  daily_challenges_id INT NULL COMMENT 'Foreing key from DAILY CHALLENGES table',
+  daily_challenges_date DATE NULL COMMENT 'Foreing key from DAILY CHALLENGES table',
+  normal_classes_id INT NULL COMMENT 'Foreing key from NORMAL CHALLENGES table',
+  normal_challenges_id INT NULL COMMENT 'Foreing key from NORMAL CHALLENGES table',
+  date_of_completation DATE NOT NULL COMMENT 'Date in wich the challenge was completed',
+  Interactions JSON NULL COMMENT '\nInteractions for the completed challenged by others gymnasts\nHi 5\nComments\nApplasuse\nIn JSON Format',
+  PRIMARY KEY (id),
+  INDEX fk_gymnast_has_daily_challenges_idx (daily_classes_id ASC, daily_challenges_id ASC, daily_challenges_date ASC),
+  INDEX fk_gymnast_has_normal_challenges_idx (normal_classes_id ASC, normal_challenges_id ASC),
+  INDEX fk_completed_challenges_has_gymnasts_idx (gymnasts_id ASC))
+ENGINE = InnoDB
+COMMENT = 'Table that stores the CHALLENGES that a GYMNAST has completed.';
+
+-- -----------------------------------------------------
+-- ALTER TABLES FOR FK
+-- -----------------------------------------------------
+
+ALTER TABLE users
+ADD CONSTRAINT fk_users_gyms
+    FOREIGN KEY (gyms_id)
+    REFERENCES gyms (id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
 
-
-ALTER TABLE `Skilltrakker_API`.`GYMS (GYM)` ADD  CONSTRAINT `fk_GYM_USE`
-    FOREIGN KEY (`USE_id`)
-    REFERENCES `Skilltrakker_API`.`USERS (USE)` (`id`)
+ALTER TABLE gyms 
+ADD CONSTRAINT fk_gyms_users
+    FOREIGN KEY (owner_id)
+    REFERENCES users (id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
 
-ALTER TABLE `Skilltrakker_API`.`GYMNASTS (GYA)` ADD CONSTRAINT `fk_GYA_USE`
-    FOREIGN KEY (`USE_id`)
-    REFERENCES `Skilltrakker_API`.`USERS (USE)` (`id`)
+ALTER TABLE gymnasts 
+ADD CONSTRAINT fk_gymnasts_users_idx
+    FOREIGN KEY (users_id)
+    REFERENCES users (id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
 
-ALTER TABLE `Skilltrakker_API`.`GYMNASTS_CLASSES (GCE)` ADD CONSTRAINT `fk_GYA_is_part_of_a_CLE`
-    FOREIGN KEY (`GYA_Id`)
-    REFERENCES `Skilltrakker_API`.`GYMNASTS (GYA)` (`Id`)
+ALTER TABLE normal_challenges 
+ADD CONSTRAINT fk_class_has_challenges
+    FOREIGN KEY (classes_id)
+    REFERENCES classes (id)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION;
-ALTER TABLE `Skilltrakker_API`.`GYMNASTS_CLASSES (GCE)` ADD CONSTRAINT `fk_CLE_has_GYA`
-    FOREIGN KEY (`CLE_Id`)
-    REFERENCES `Skilltrakker_API`.`CLASSES (CLE)` (`Id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION;
-
-
-ALTER TABLE `Skilltrakker_API`.`CLASSES_CHALLENGES (CCE)` ADD CONSTRAINT `fk_CLE_has_CHE`
-    FOREIGN KEY (`CLE_Id`)
-    REFERENCES `Skilltrakker_API`.`CLASSES (CLE)` (`Id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION;
-ALTER TABLE `Skilltrakker_API`.`CLASSES_CHALLENGES (CCE)` ADD CONSTRAINT `fk_CHE_is_in_CLE`
-    FOREIGN KEY (`CHE_Id`)
-    REFERENCES `Skilltrakker_API`.`CHALLENGES (CHE)` (`Id`)
+    ON UPDATE NO ACTION,
+ADD CONSTRAINT fk_challenge_is_in_class_
+    FOREIGN KEY (challenges_id)
+    REFERENCES challenges (id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
 
-
-ALTER TABLE `Skilltrakker_API`.`SKILLS (SKI)` ADD CONSTRAINT `fk_SKI_EVE`
-    FOREIGN KEY (`EVE_id`)
-    REFERENCES `Skilltrakker_API`.`EVENTS (EVE)` (`Id`)
+ALTER TABLE skills 
+ADD CONSTRAINT fk_skills_events
+    FOREIGN KEY (events_id)
+    REFERENCES events (id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
 
-
-ALTER TABLE `Skilltrakker_API`.`GYMNAST_SKILLS (GSI)` ADD CONSTRAINT `fk_GYA_has_SKI`
-    FOREIGN KEY (`GYA_Id`)
-    REFERENCES `Skilltrakker_API`.`GYMNASTS (GYA)` (`Id`)
+ALTER TABLE gymnast_has_skills
+ADD CONSTRAINT fk_gymnast_has_skills
+    FOREIGN KEY (gymnast_id)
+    REFERENCES gymnasts (id)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION;
-ALTER TABLE `Skilltrakker_API`.`GYMNAST_SKILLS (GSI)` ADD CONSTRAINT `fk_SKI_is_mastered_by_GYA`
-    FOREIGN KEY (`SKI_Id`)
-    REFERENCES `Skilltrakker_API`.`SKILLS (SKI)` (`Id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION;
-
-
-ALTER TABLE `Skilltrakker_API`.`SKILL_LEVEL (SLE)` ADD CONSTRAINT `fk_LVE_is_part_SKI`
-    FOREIGN KEY (`LVE_Id`)
-    REFERENCES `Skilltrakker_API`.`LEVELS (LVE)` (`Id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION;
-ALTER TABLE `Skilltrakker_API`.`SKILL_LEVEL (SLE)` ADD CONSTRAINT `fk_SKI_has_LVE`
-    FOREIGN KEY (`SKI_Id`)
-    REFERENCES `Skilltrakker_API`.`SKILLS (SKI)` (`Id`)
+    ON UPDATE NO ACTION,
+ADD CONSTRAINT fk_skills_is_mastered_by_gymnast
+    FOREIGN KEY (skills_Id)
+    REFERENCES skills (id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
 
-
-ALTER TABLE `Skilltrakker_API`.`GYMNAST_CLASSES_CHALLENGES (GCCE)` ADD CONSTRAINT `fk_GYA_has_CCE`
-    FOREIGN KEY (`GYA_Id`)
-    REFERENCES `Skilltrakker_API`.`GYMNASTS (GYA)` (`Id`)
+ALTER TABLE skill_has_levels
+ADD CONSTRAINT fk_level_is_part_of_skill
+    FOREIGN KEY (levels_id)
+    REFERENCES levels (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+ADD CONSTRAINT fk_SKI_has_LVE
+    FOREIGN KEY (skills_id)
+    REFERENCES skills (id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
-ALTER TABLE `Skilltrakker_API`.`GYMNAST_CLASSES_CHALLENGES (GCCE)` ADD CONSTRAINT `fk_CCE_are_done_by_GYA`
-    FOREIGN KEY (`CCE_CLE_Id` , `CCE_CHE_Id` , `CCE_Is_Daily?`)
-    REFERENCES `Skilltrakker_API`.`CLASSES_CHALLENGES (CCE)` (`CLE_Id` , `CHE_Id` , `Is_Daily?`)
+
+ALTER TABLE timeline
+ADD CONSTRAINT fk_timeline_gyms
+    FOREIGN KEY (gyms_Id)
+    REFERENCES gyms (id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
 
+ALTER TABLE gymnasts_classes
+ADD CONSTRAINT fk_gymnast_has_classes
+    FOREIGN KEY (gymnasts_id)
+    REFERENCES gymnasts (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+ADD CONSTRAINT fk_class_has_gymnasts
+    FOREIGN KEY (classes_id)
+    REFERENCES classes (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
 
-ALTER TABLE `Skilltrakker_API`.`TIMELINE (TME)` ADD CONSTRAINT `fk_TME_GYMS`
-    FOREIGN KEY (`GYM_Id`)
-    REFERENCES `Skilltrakker_API`.`GYMS (GYM)` (`Id`)
+ALTER TABLE daily_challenges
+ADD CONSTRAINT fk_class_has_daily_challenges
+    FOREIGN KEY (classes_id)
+    REFERENCES classes (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+ADD CONSTRAINT fk_challenge_has_classes_idx
+    FOREIGN KEY (challenges_id)
+    REFERENCES challenges (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+
+ALTER TABLE completed_challenges
+ADD CONSTRAINT fk_gymnast_has_daily_challenges
+    FOREIGN KEY (daily_classes_id , daily_challenges_id , daily_challenges_date)
+    REFERENCES daily_challenges (classes_id , challenges_id , date_challenge)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+ADD CONSTRAINT fk_gymnast_has_normal_challenges
+    FOREIGN KEY (normal_classes_id , normal_challenges_id)
+    REFERENCES normal_challenges (classes_id , challenges_id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+ADD CONSTRAINT fk_completed_challenges_has_gymnasts
+    FOREIGN KEY (gymnasts_id)
+    REFERENCES gymnasts (id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
 

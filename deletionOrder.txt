@@ -1,14 +1,15 @@
-GYMNAST_CLASSES_CHALLENGES (GCCE)
-SKILL_LEVEL (SLE)
-GYMNASTS_CLASSES (GCE)
-GYMNAST_SKILLS (GSI)
-TIMELINE (TME)
-SKILLS (SKI)
-CLASSES_CHALLENGES (CCE)
-GYMNASTS (GYA)
-USERS (USE)
-GYMS (GYM)
-LEVELS (LVE)
-EVENTS (EVE)
-CHALLENGES (CHE)
-CLASSES (CLE)
+completed_challenges
+skill_has_levels
+gymnasts_classes
+gymnast_has_skills
+timeline
+normal_challenges
+skills
+daily_challenges
+gymnasts
+users
+gyms
+levels
+events
+challenges
+classes

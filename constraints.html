@@ -80,7 +80,7 @@
                     <div class="box box-primary">
                         <div class="box-header with-border">
                             <i class="ion ion-key"></i>
-                            <h3 class="box-title">15 Foreign Key Constraints</h3>
+                            <h3 class="box-title">18 Foreign Key Constraints</h3>
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                                 <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -98,18 +98,180 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>fk_TME_GYMS</td>
+                                        <td>fk_skills_events</td>
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
-                                                    <td><a href='tables/TIMELINE (TME).html'>TIMELINE (TME)</a><span>.GYM_Id</span></td>
+                                                    <td><a href='tables/skills.html'>skills</a><span>.events_id</span></td>
                                                 </tr>
                                             </table>
                                         </td>
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
-                                                    <td><a href='tables/GYMS (GYM).html'>GYMS (GYM)</a><span>.Id</span></td>
+                                                    <td><a href='tables/events.html'>events</a><span>.id</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>fk_skills_is_mastered_by_gymnast</td>
+                                        <td>
+                                            <table border='0' cellspacing='0' cellpadding='0'>
+                                                <tr>
+                                                    <td><a href='tables/gymnast_has_skills.html'>gymnast_has_skills</a><span>.skills_Id</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td>
+                                            <table border='0' cellspacing='0' cellpadding='0'>
+                                                <tr>
+                                                    <td><a href='tables/skills.html'>skills</a><span>.id</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>fk_gymnast_has_skills</td>
+                                        <td>
+                                            <table border='0' cellspacing='0' cellpadding='0'>
+                                                <tr>
+                                                    <td><a href='tables/gymnast_has_skills.html'>gymnast_has_skills</a><span>.gymnast_id</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td>
+                                            <table border='0' cellspacing='0' cellpadding='0'>
+                                                <tr>
+                                                    <td><a href='tables/gymnasts.html'>gymnasts</a><span>.id</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>fk_class_has_challenges</td>
+                                        <td>
+                                            <table border='0' cellspacing='0' cellpadding='0'>
+                                                <tr>
+                                                    <td><a href='tables/normal_challenges.html'>normal_challenges</a><span>.classes_id</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td>
+                                            <table border='0' cellspacing='0' cellpadding='0'>
+                                                <tr>
+                                                    <td><a href='tables/classes.html'>classes</a><span>.id</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>fk_challenge_is_in_class_</td>
+                                        <td>
+                                            <table border='0' cellspacing='0' cellpadding='0'>
+                                                <tr>
+                                                    <td><a href='tables/normal_challenges.html'>normal_challenges</a><span>.challenges_id</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td>
+                                            <table border='0' cellspacing='0' cellpadding='0'>
+                                                <tr>
+                                                    <td><a href='tables/challenges.html'>challenges</a><span>.id</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>fk_gymnasts_users_idx</td>
+                                        <td>
+                                            <table border='0' cellspacing='0' cellpadding='0'>
+                                                <tr>
+                                                    <td><a href='tables/gymnasts.html'>gymnasts</a><span>.users_id</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td>
+                                            <table border='0' cellspacing='0' cellpadding='0'>
+                                                <tr>
+                                                    <td><a href='tables/users.html'>users</a><span>.id</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>fk_gymnast_has_classes</td>
+                                        <td>
+                                            <table border='0' cellspacing='0' cellpadding='0'>
+                                                <tr>
+                                                    <td><a href='tables/gymnasts_classes.html'>gymnasts_classes</a><span>.gymnasts_id</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td>
+                                            <table border='0' cellspacing='0' cellpadding='0'>
+                                                <tr>
+                                                    <td><a href='tables/gymnasts.html'>gymnasts</a><span>.id</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>fk_class_has_gymnasts</td>
+                                        <td>
+                                            <table border='0' cellspacing='0' cellpadding='0'>
+                                                <tr>
+                                                    <td><a href='tables/gymnasts_classes.html'>gymnasts_classes</a><span>.classes_id</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td>
+                                            <table border='0' cellspacing='0' cellpadding='0'>
+                                                <tr>
+                                                    <td><a href='tables/classes.html'>classes</a><span>.id</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>fk_class_has_daily_challenges</td>
+                                        <td>
+                                            <table border='0' cellspacing='0' cellpadding='0'>
+                                                <tr>
+                                                    <td><a href='tables/daily_challenges.html'>daily_challenges</a><span>.classes_id</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td>
+                                            <table border='0' cellspacing='0' cellpadding='0'>
+                                                <tr>
+                                                    <td><a href='tables/classes.html'>classes</a><span>.id</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>fk_challenge_has_classes_idx</td>
+                                        <td>
+                                            <table border='0' cellspacing='0' cellpadding='0'>
+                                                <tr>
+                                                    <td><a href='tables/daily_challenges.html'>daily_challenges</a><span>.challenges_id</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td>
+                                            <table border='0' cellspacing='0' cellpadding='0'>
+                                                <tr>
+                                                    <td><a href='tables/challenges.html'>challenges</a><span>.id</span></td>
                                                 </tr>
                                             </table>
                                         </td>
@@ -120,260 +282,158 @@
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
-                                                    <td><a href='tables/SKILL_LEVEL (SLE).html'>SKILL_LEVEL (SLE)</a><span>.SKI_Id</span></td>
+                                                    <td><a href='tables/skill_has_levels.html'>skill_has_levels</a><span>.skills_id</span></td>
                                                 </tr>
                                             </table>
                                         </td>
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
-                                                    <td><a href='tables/SKILLS (SKI).html'>SKILLS (SKI)</a><span>.Id</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>fk_LVE_is_part_SKI</td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/SKILL_LEVEL (SLE).html'>SKILL_LEVEL (SLE)</a><span>.LVE_Id</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/LEVELS (LVE).html'>LEVELS (LVE)</a><span>.Id</span></td>
+                                                    <td><a href='tables/skills.html'>skills</a><span>.id</span></td>
                                                 </tr>
                                             </table>
                                         </td>
                                         <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
                                     </tr>
                                     <tr>
-                                        <td>fk_SKI_EVE</td>
+                                        <td>fk_level_is_part_of_skill</td>
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
-                                                    <td><a href='tables/SKILLS (SKI).html'>SKILLS (SKI)</a><span>.EVE_id</span></td>
+                                                    <td><a href='tables/skill_has_levels.html'>skill_has_levels</a><span>.levels_id</span></td>
                                                 </tr>
                                             </table>
                                         </td>
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
-                                                    <td><a href='tables/EVENTS (EVE).html'>EVENTS (EVE)</a><span>.Id</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>fk_GYA_is_part_of_a_CLE</td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/GYMNASTS_CLASSES (GCE).html'>GYMNASTS_CLASSES (GCE)</a><span>.GYA_Id</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/GYMNASTS (GYA).html'>GYMNASTS (GYA)</a><span>.Id</span></td>
+                                                    <td><a href='tables/levels.html'>levels</a><span>.id</span></td>
                                                 </tr>
                                             </table>
                                         </td>
                                         <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
                                     </tr>
                                     <tr>
-                                        <td>fk_CLE_has_GYA</td>
+                                        <td>fk_gyms_users</td>
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
-                                                    <td><a href='tables/GYMNASTS_CLASSES (GCE).html'>GYMNASTS_CLASSES (GCE)</a><span>.CLE_Id</span></td>
+                                                    <td><a href='tables/gyms.html'>gyms</a><span>.owner_id</span></td>
                                                 </tr>
                                             </table>
                                         </td>
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
-                                                    <td><a href='tables/CLASSES (CLE).html'>CLASSES (CLE)</a><span>.Id</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>fk_GYM_USE</td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/GYMS (GYM).html'>GYMS (GYM)</a><span>.USE_id</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/USERS (USE).html'>USERS (USE)</a><span>.id</span></td>
+                                                    <td><a href='tables/users.html'>users</a><span>.id</span></td>
                                                 </tr>
                                             </table>
                                         </td>
                                         <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
                                     </tr>
                                     <tr>
-                                        <td>fk_CHE_is_in_CLE</td>
+                                        <td>fk_users_gyms</td>
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
-                                                    <td><a href='tables/CLASSES_CHALLENGES (CCE).html'>CLASSES_CHALLENGES (CCE)</a><span>.CHE_Id</span></td>
+                                                    <td><a href='tables/users.html'>users</a><span>.gyms_id</span></td>
                                                 </tr>
                                             </table>
                                         </td>
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
-                                                    <td><a href='tables/CHALLENGES (CHE).html'>CHALLENGES (CHE)</a><span>.Id</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>fk_CLE_has_CHE</td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/CLASSES_CHALLENGES (CCE).html'>CLASSES_CHALLENGES (CCE)</a><span>.CLE_Id</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/CLASSES (CLE).html'>CLASSES (CLE)</a><span>.Id</span></td>
+                                                    <td><a href='tables/gyms.html'>gyms</a><span>.id</span></td>
                                                 </tr>
                                             </table>
                                         </td>
                                         <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
                                     </tr>
                                     <tr>
-                                        <td>fk_GYA_has_CCE</td>
+                                        <td>fk_gymnast_has_daily_challenges</td>
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
-                                                    <td><a href='tables/GYMNAST_CLASSES_CHALLENGES (GCCE).html'>GYMNAST_CLASSES_CHALLENGES (GCCE)</a><span>.GYA_Id</span></td>
+                                                    <td><a href='tables/completed_challenges.html'>completed_challenges</a><span>.daily_classes_id</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><a href='tables/completed_challenges.html'>completed_challenges</a><span>.daily_challenges_id</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><a href='tables/completed_challenges.html'>completed_challenges</a><span>.daily_challenges_date</span></td>
                                                 </tr>
                                             </table>
                                         </td>
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
-                                                    <td><a href='tables/GYMNASTS (GYA).html'>GYMNASTS (GYA)</a><span>.Id</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>fk_CCE_are_done_by_GYA</td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/GYMNAST_CLASSES_CHALLENGES (GCCE).html'>GYMNAST_CLASSES_CHALLENGES (GCCE)</a><span>.CCE_CLE_Id</span></td>
+                                                    <td><a href='tables/daily_challenges.html'>daily_challenges</a><span>.classes_id</span></td>
                                                 </tr>
                                                 <tr>
-                                                    <td><a href='tables/GYMNAST_CLASSES_CHALLENGES (GCCE).html'>GYMNAST_CLASSES_CHALLENGES (GCCE)</a><span>.CCE_CHE_Id</span></td>
+                                                    <td><a href='tables/daily_challenges.html'>daily_challenges</a><span>.challenges_id</span></td>
                                                 </tr>
                                                 <tr>
-                                                    <td><a href='tables/GYMNAST_CLASSES_CHALLENGES (GCCE).html'>GYMNAST_CLASSES_CHALLENGES (GCCE)</a><span>.CCE_Is_Daily?</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/CLASSES_CHALLENGES (CCE).html'>CLASSES_CHALLENGES (CCE)</a><span>.CLE_Id</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><a href='tables/CLASSES_CHALLENGES (CCE).html'>CLASSES_CHALLENGES (CCE)</a><span>.CHE_Id</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><a href='tables/CLASSES_CHALLENGES (CCE).html'>CLASSES_CHALLENGES (CCE)</a><span>.Is_Daily?</span></td>
+                                                    <td><a href='tables/daily_challenges.html'>daily_challenges</a><span>.date_challenge</span></td>
                                                 </tr>
                                             </table>
                                         </td>
                                         <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
                                     </tr>
                                     <tr>
-                                        <td>fk_GYA_has_SKI</td>
+                                        <td>fk_gymnast_has_normal_challenges</td>
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
-                                                    <td><a href='tables/GYMNAST_SKILLS (GSI).html'>GYMNAST_SKILLS (GSI)</a><span>.GYA_Id</span></td>
+                                                    <td><a href='tables/completed_challenges.html'>completed_challenges</a><span>.normal_classes_id</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><a href='tables/completed_challenges.html'>completed_challenges</a><span>.normal_challenges_id</span></td>
                                                 </tr>
                                             </table>
                                         </td>
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
-                                                    <td><a href='tables/GYMNASTS (GYA).html'>GYMNASTS (GYA)</a><span>.Id</span></td>
+                                                    <td><a href='tables/normal_challenges.html'>normal_challenges</a><span>.classes_id</span></td>
                                                 </tr>
-                                            </table>
-                                        </td>
-                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>fk_SKI_is_mastered_by_GYA</td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
-                                                    <td><a href='tables/GYMNAST_SKILLS (GSI).html'>GYMNAST_SKILLS (GSI)</a><span>.SKI_Id</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/SKILLS (SKI).html'>SKILLS (SKI)</a><span>.Id</span></td>
+                                                    <td><a href='tables/normal_challenges.html'>normal_challenges</a><span>.challenges_id</span></td>
                                                 </tr>
                                             </table>
                                         </td>
                                         <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
                                     </tr>
                                     <tr>
-                                        <td>fk_GYA_USE</td>
+                                        <td>fk_completed_challenges_has_gymnasts</td>
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
-                                                    <td><a href='tables/GYMNASTS (GYA).html'>GYMNASTS (GYA)</a><span>.USE_id</span></td>
+                                                    <td><a href='tables/completed_challenges.html'>completed_challenges</a><span>.gymnasts_id</span></td>
                                                 </tr>
                                             </table>
                                         </td>
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
-                                                    <td><a href='tables/USERS (USE).html'>USERS (USE)</a><span>.id</span></td>
+                                                    <td><a href='tables/gymnasts.html'>gymnasts</a><span>.id</span></td>
                                                 </tr>
                                             </table>
                                         </td>
                                         <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
                                     </tr>
                                     <tr>
-                                        <td>fk_USE_GYM</td>
+                                        <td>fk_timeline_gyms</td>
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
-                                                    <td><a href='tables/USERS (USE).html'>USERS (USE)</a><span>.GYM_Id</span></td>
+                                                    <td><a href='tables/timeline.html'>timeline</a><span>.gyms_Id</span></td>
                                                 </tr>
                                             </table>
                                         </td>
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
-                                                    <td><a href='tables/GYMS (GYM).html'>GYMS (GYM)</a><span>.Id</span></td>
+                                                    <td><a href='tables/gyms.html'>gyms</a><span>.id</span></td>
                                                 </tr>
                                             </table>
                                         </td>
