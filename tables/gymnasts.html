@@ -125,8 +125,12 @@
                                     <td>
                                         <table border='0' cellspacing='0' cellpadding='0'>
                                             <tr>
-                                                <td title="completed_challenges.gymnasts_id references gymnasts.id via fk_completed_challenges_has_gymnasts"><a href='completed_challenges.html'>completed_challenges</a><span class='relatedKey'>.gymnasts_id</span></td>
-                                                <td class="constraint detail">fk_completed_challenges_has_gymnasts<span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
+                                                <td title="completed_daily_challenges.gymnasts_id references gymnasts.id via fk_gymnast_has_daily_challenges"><a href='completed_daily_challenges.html'>completed_daily_challenges</a><span class='relatedKey'>.gymnasts_id</span></td>
+                                                <td class="constraint detail">fk_gymnast_has_daily_challenges<span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td title="completed_normal_challenges.gymnasts_id references gymnasts.id via fk_gymnast_has_normal_challenges"><a href='completed_normal_challenges.html'>completed_normal_challenges</a><span class='relatedKey'>.gymnasts_id</span></td>
+                                                <td class="constraint detail">fk_gymnast_has_normal_challenges<span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
                                             </tr>
                                             <tr>
                                                 <td title="gymnast_has_skills.gymnast_id references gymnasts.id via fk_gymnast_has_skills"><a href='gymnast_has_skills.html'>gymnast_has_skills</a><span class='relatedKey'>.gymnast_id</span></td>
@@ -360,26 +364,28 @@
                                 <div class="tab-content no-padding">
                                     <div class="chart tab-pane active" id="oneDegreeImg-chart" style="position: relative; overflow-x:auto;">
                                         <map id="oneDegreeRelationshipsDiagram" name="oneDegreeRelationshipsDiagram">
-<area shape="rect" id="node1" href="completed_challenges.html" target="_top" title="completed_challenges" alt="" coords="657,5,905,299">
-<area shape="rect" id="node2" href="gymnasts.html" target="_top" title="gymnasts" alt="" coords="208,313,613,676">
-<area shape="rect" id="node4" href="users.html" target="_top" title="users" alt="" coords="5,580,164,785">
-<area shape="rect" id="node3" href="gymnast_has_skills.html" target="_top" title="gymnast_has_skills" alt="" coords="671,316,891,463">
-<area shape="rect" id="node5" href="gymnasts_classes.html" target="_top" title="gymnasts_classes" alt="" coords="677,480,886,603">
+<area shape="rect" id="node1" href="completed_daily_challenges.html" target="_top" title="completed_daily_challenges" alt="" coords="667,5,994,211">
+<area shape="rect" id="node2" href="gymnasts.html" target="_top" title="gymnasts" alt="" coords="208,323,613,685">
+<area shape="rect" id="node5" href="users.html" target="_top" title="users" alt="" coords="5,589,164,795">
+<area shape="rect" id="node3" href="completed_normal_challenges.html" target="_top" title="completed_normal_challenges" alt="" coords="657,228,1004,404">
+<area shape="rect" id="node4" href="gymnast_has_skills.html" target="_top" title="gymnast_has_skills" alt="" coords="721,421,941,568">
+<area shape="rect" id="node6" href="gymnasts_classes.html" target="_top" title="gymnasts_classes" alt="" coords="726,585,935,708">
 </map>
                                         <a name='diagram'><img id="oneDegreeImg" src="../diagrams/tables/gymnasts.1degree.png" usemap="#oneDegreeRelationshipsDiagram" class="diagram" border="0" align="left"></a>
                                     </div>
                                     <div class="chart tab-pane " id="twodegreesDegreeImg-chart" style="position: relative; overflow-x:auto;">
                                         <map id="twoDegreesRelationshipsDiagram" name="twoDegreesRelationshipsDiagram">
-<area shape="rect" id="node1" href="completed_challenges.html" target="_top" title="completed_challenges" alt="" coords="833,5,1081,299">
-<area shape="rect" id="node2" href="daily_challenges.html" target="_top" title="daily_challenges" alt="" coords="488,72,685,160">
-<area shape="rect" id="node3" href="gymnasts.html" target="_top" title="gymnasts" alt="" coords="384,283,789,645">
-<area shape="rect" id="node4" href="normal_challenges.html" target="_top" title="normal_challenges" alt="" coords="480,177,693,265">
-<area shape="rect" id="node5" href="classes.html" target="_top" title="classes" alt="" coords="194,177,327,265">
-<area shape="rect" id="node8" href="users.html" target="_top" title="users" alt="" coords="181,549,340,755">
-<area shape="rect" id="node6" href="gymnast_has_skills.html" target="_top" title="gymnast_has_skills" alt="" coords="847,609,1067,756">
-<area shape="rect" id="node7" href="skills.html" target="_top" title="skills" alt="" coords="521,699,653,787">
-<area shape="rect" id="node10" href="gyms.html" target="_top" title="gyms" alt="" coords="5,596,137,684">
-<area shape="rect" id="node9" href="gymnasts_classes.html" target="_top" title="gymnasts_classes" alt="" coords="853,367,1062,489">
+<area shape="rect" id="node1" href="completed_daily_challenges.html" target="_top" title="completed_daily_challenges" alt="" coords="843,485,1170,691">
+<area shape="rect" id="node2" href="daily_challenges.html" target="_top" title="daily_challenges" alt="" coords="488,576,685,664">
+<area shape="rect" id="node3" href="gymnasts.html" target="_top" title="gymnasts" alt="" coords="384,196,789,559">
+<area shape="rect" id="node6" href="classes.html" target="_top" title="classes" alt="" coords="194,123,327,211">
+<area shape="rect" id="node9" href="users.html" target="_top" title="users" alt="" coords="181,463,340,668">
+<area shape="rect" id="node4" href="completed_normal_challenges.html" target="_top" title="completed_normal_challenges" alt="" coords="833,5,1180,181">
+<area shape="rect" id="node5" href="normal_challenges.html" target="_top" title="normal_challenges" alt="" coords="480,55,693,143">
+<area shape="rect" id="node7" href="gymnast_has_skills.html" target="_top" title="gymnast_has_skills" alt="" coords="897,708,1117,855">
+<area shape="rect" id="node8" href="skills.html" target="_top" title="skills" alt="" coords="521,740,653,828">
+<area shape="rect" id="node11" href="gyms.html" target="_top" title="gyms" alt="" coords="5,509,137,597">
+<area shape="rect" id="node10" href="gymnasts_classes.html" target="_top" title="gymnasts_classes" alt="" coords="902,199,1111,321">
 </map>
                                         <a name='diagram'><img id="twodegreesDegreeImg" src="../diagrams/tables/gymnasts.2degrees.png" usemap="#twoDegreesRelationshipsDiagram" class="diagram" border="0" align="left"></a>
                                     </div>

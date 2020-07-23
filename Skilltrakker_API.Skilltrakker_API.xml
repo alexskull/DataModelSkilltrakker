@@ -27,56 +27,79 @@
             <column ascending="true" name="id"/>
          </index>
       </table>
-      <table catalog="Skilltrakker_API" name="completed_challenges" numRows="0" remarks="Table that stores the CHALLENGES that a GYMNAST has completed." type="TABLE">
-         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="Auto increment code for challenges" size="10" type="INT" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="gymnasts_id" nullable="false" remarks="gymnast' code" size="10" type="INT" typeCode="4">
-            <parent catalog="Skilltrakker_API" column="id" foreignKey="fk_completed_challenges_has_gymnasts" implied="false" onDeleteCascade="false" table="gymnasts"/>
+      <table catalog="Skilltrakker_API" name="completed_daily_challenges" numRows="0" remarks="Table that stores the DAILY CHALLENGES that a GYMNAST has completed." type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="gymnasts_id" nullable="false" remarks="gymnast' code" size="10" type="INT" typeCode="4">
+            <parent catalog="Skilltrakker_API" column="id" foreignKey="fk_gymnast_has_daily_challenges" implied="false" onDeleteCascade="false" table="gymnasts"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="daily_classes_id" nullable="true" remarks="Foreing key from DAILY CHALLENGES table" size="10" type="INT" typeCode="4">
-            <parent catalog="Skilltrakker_API" column="classes_id" foreignKey="fk_gymnast_has_daily_challenges" implied="false" onDeleteCascade="false" table="daily_challenges"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="daily_challenges_classes_id" nullable="false" remarks="Foreing key from DAILY CHALLENGES table" size="10" type="INT" typeCode="4">
+            <parent catalog="Skilltrakker_API" column="classes_id" foreignKey="fk_daily_challenge_is_completed_by_gymnast" implied="false" onDeleteCascade="false" table="daily_challenges"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="daily_challenges_id" nullable="true" remarks="Foreing key from DAILY CHALLENGES table" size="10" type="INT" typeCode="4">
-            <parent catalog="Skilltrakker_API" column="challenges_id" foreignKey="fk_gymnast_has_daily_challenges" implied="false" onDeleteCascade="false" table="daily_challenges"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="daily_challenges_challenges_id" nullable="false" remarks="Foreing key from DAILY CHALLENGES table" size="10" type="INT" typeCode="4">
+            <parent catalog="Skilltrakker_API" column="challenges_id" foreignKey="fk_daily_challenge_is_completed_by_gymnast" implied="false" onDeleteCascade="false" table="daily_challenges"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="daily_challenges_date" nullable="true" remarks="Foreing key from DAILY CHALLENGES table" size="10" type="DATE" typeCode="91">
-            <parent catalog="Skilltrakker_API" column="date_challenge" foreignKey="fk_gymnast_has_daily_challenges" implied="false" onDeleteCascade="false" table="daily_challenges"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="daily_challenges_date" nullable="false" remarks="Foreing key from DAILY CHALLENGES table" size="10" type="DATE" typeCode="91">
+            <parent catalog="Skilltrakker_API" column="date_challenge" foreignKey="fk_daily_challenge_is_completed_by_gymnast" implied="false" onDeleteCascade="false" table="daily_challenges"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="normal_classes_id" nullable="true" remarks="Foreing key from NORMAL CHALLENGES table" size="10" type="INT" typeCode="4">
-            <parent catalog="Skilltrakker_API" column="classes_id" foreignKey="fk_gymnast_has_normal_challenges" implied="false" onDeleteCascade="false" table="normal_challenges"/>
-         </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="normal_challenges_id" nullable="true" remarks="Foreing key from NORMAL CHALLENGES table" size="10" type="INT" typeCode="4">
-            <parent catalog="Skilltrakker_API" column="challenges_id" foreignKey="fk_gymnast_has_normal_challenges" implied="false" onDeleteCascade="false" table="normal_challenges"/>
-         </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="date_of_completation" nullable="false" remarks="Date in wich the challenge was completed" size="10" type="DATE" typeCode="91"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="Interactions" nullable="true" remarks="Interactions for the completed challenged by others gymnasts&#10;Hi 5&#10;Comments&#10;Applasuse&#10;In JSON Format" size="1073741824" type="JSON" typeCode="-1"/>
-         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="date_of_completation" nullable="false" remarks="Date in wich the challenge was completed" size="10" type="DATE" typeCode="91"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="Interactions" nullable="true" remarks="Interactions for the completed challenged by others gymnasts&#10;Hi 5&#10;Comments&#10;Applasuse&#10;In JSON Format" size="1073741824" type="JSON" typeCode="-1"/>
+         <primaryKey column="gymnasts_id" sequenceNumberInPK="1"/>
+         <primaryKey column="daily_challenges_classes_id" sequenceNumberInPK="2"/>
+         <primaryKey column="daily_challenges_challenges_id" sequenceNumberInPK="3"/>
+         <primaryKey column="daily_challenges_date" sequenceNumberInPK="4"/>
          <index name="PRIMARY" unique="true">
-            <column ascending="true" name="id"/>
+            <column ascending="true" name="gymnasts_id"/>
+            <column ascending="true" name="daily_challenges_classes_id"/>
+            <column ascending="true" name="daily_challenges_challenges_id"/>
+            <column ascending="true" name="daily_challenges_date"/>
          </index>
          <index name="fk_completed_challenges_has_gymnasts_idx" unique="false">
             <column ascending="true" name="gymnasts_id"/>
          </index>
          <index name="fk_gymnast_has_daily_challenges_idx" unique="false">
-            <column ascending="true" name="daily_classes_id"/>
-            <column ascending="true" name="daily_challenges_id"/>
+            <column ascending="true" name="daily_challenges_classes_id"/>
+            <column ascending="true" name="daily_challenges_challenges_id"/>
             <column ascending="true" name="daily_challenges_date"/>
          </index>
+      </table>
+      <table catalog="Skilltrakker_API" name="completed_normal_challenges" numRows="0" remarks="Table that stores the CHALLENGES that a GYMNAST has completed." type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="gymnasts_id" nullable="false" remarks="gymnast' code" size="10" type="INT" typeCode="4">
+            <parent catalog="Skilltrakker_API" column="id" foreignKey="fk_gymnast_has_normal_challenges" implied="false" onDeleteCascade="false" table="gymnasts"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="normal_challenges_classes_id" nullable="false" remarks="Foreing key from NORMAL CHALLENGES table" size="10" type="INT" typeCode="4">
+            <parent catalog="Skilltrakker_API" column="classes_id" foreignKey="fk_normal_challenge_is_completed_by_gymnast" implied="false" onDeleteCascade="false" table="normal_challenges"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="normal_challenges_challenges_id" nullable="false" remarks="Foreing key from NORMAL CHALLENGES table" size="10" type="INT" typeCode="4">
+            <parent catalog="Skilltrakker_API" column="challenges_id" foreignKey="fk_normal_challenge_is_completed_by_gymnast" implied="false" onDeleteCascade="false" table="normal_challenges"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="date_of_completation" nullable="false" remarks="Date in wich the challenge was completed" size="10" type="DATE" typeCode="91"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="Interactions" nullable="true" remarks="Interactions for the completed challenged by others gymnasts&#10;Hi 5&#10;Comments&#10;Applasuse&#10;In JSON Format" size="1073741824" type="JSON" typeCode="-1"/>
+         <primaryKey column="gymnasts_id" sequenceNumberInPK="1"/>
+         <primaryKey column="normal_challenges_classes_id" sequenceNumberInPK="2"/>
+         <primaryKey column="normal_challenges_challenges_id" sequenceNumberInPK="3"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="gymnasts_id"/>
+            <column ascending="true" name="normal_challenges_classes_id"/>
+            <column ascending="true" name="normal_challenges_challenges_id"/>
+         </index>
+         <index name="fk_completed_challenges_has_gymnasts_idx" unique="false">
+            <column ascending="true" name="gymnasts_id"/>
+         </index>
          <index name="fk_gymnast_has_normal_challenges_idx" unique="false">
-            <column ascending="true" name="normal_classes_id"/>
-            <column ascending="true" name="normal_challenges_id"/>
+            <column ascending="true" name="normal_challenges_classes_id"/>
+            <column ascending="true" name="normal_challenges_challenges_id"/>
          </index>
       </table>
       <table catalog="Skilltrakker_API" name="daily_challenges" numRows="0" remarks="Table that stores the daily challenges that a class had." type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="classes_id" nullable="false" remarks="Class' code" size="10" type="INT" typeCode="4">
-            <child catalog="Skilltrakker_API" column="daily_classes_id" foreignKey="fk_gymnast_has_daily_challenges" implied="false" onDeleteCascade="false" table="completed_challenges"/>
+            <child catalog="Skilltrakker_API" column="daily_challenges_classes_id" foreignKey="fk_daily_challenge_is_completed_by_gymnast" implied="false" onDeleteCascade="false" table="completed_daily_challenges"/>
             <parent catalog="Skilltrakker_API" column="id" foreignKey="fk_class_has_daily_challenges" implied="false" onDeleteCascade="false" table="classes"/>
          </column>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="challenges_id" nullable="false" remarks="Challenge' code" size="10" type="INT" typeCode="4">
-            <child catalog="Skilltrakker_API" column="daily_challenges_id" foreignKey="fk_gymnast_has_daily_challenges" implied="false" onDeleteCascade="false" table="completed_challenges"/>
+            <child catalog="Skilltrakker_API" column="daily_challenges_challenges_id" foreignKey="fk_daily_challenge_is_completed_by_gymnast" implied="false" onDeleteCascade="false" table="completed_daily_challenges"/>
             <parent catalog="Skilltrakker_API" column="id" foreignKey="fk_challenge_has_classes_idx" implied="false" onDeleteCascade="false" table="challenges"/>
          </column>
          <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="date_challenge" nullable="false" remarks="Date in wich the challenge has to be completed." size="10" type="DATE" typeCode="91">
-            <child catalog="Skilltrakker_API" column="daily_challenges_date" foreignKey="fk_gymnast_has_daily_challenges" implied="false" onDeleteCascade="false" table="completed_challenges"/>
+            <child catalog="Skilltrakker_API" column="daily_challenges_date" foreignKey="fk_daily_challenge_is_completed_by_gymnast" implied="false" onDeleteCascade="false" table="completed_daily_challenges"/>
          </column>
          <primaryKey column="classes_id" sequenceNumberInPK="1"/>
          <primaryKey column="challenges_id" sequenceNumberInPK="2"/>
@@ -130,7 +153,8 @@
       </table>
       <table catalog="Skilltrakker_API" name="gymnasts" numRows="0" remarks="Table that stores GYMNASTS information" type="TABLE">
          <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="Gymnast' code" size="10" type="INT" typeCode="4">
-            <child catalog="Skilltrakker_API" column="gymnasts_id" foreignKey="fk_completed_challenges_has_gymnasts" implied="false" onDeleteCascade="false" table="completed_challenges"/>
+            <child catalog="Skilltrakker_API" column="gymnasts_id" foreignKey="fk_gymnast_has_daily_challenges" implied="false" onDeleteCascade="false" table="completed_daily_challenges"/>
+            <child catalog="Skilltrakker_API" column="gymnasts_id" foreignKey="fk_gymnast_has_normal_challenges" implied="false" onDeleteCascade="false" table="completed_normal_challenges"/>
             <child catalog="Skilltrakker_API" column="gymnast_id" foreignKey="fk_gymnast_has_skills" implied="false" onDeleteCascade="false" table="gymnast_has_skills"/>
             <child catalog="Skilltrakker_API" column="gymnasts_id" foreignKey="fk_gymnast_has_classes" implied="false" onDeleteCascade="false" table="gymnasts_classes"/>
          </column>
@@ -207,11 +231,11 @@
       </table>
       <table catalog="Skilltrakker_API" name="normal_challenges" numRows="0" remarks="Table that stores the CHALLENGES that a CLASS had." type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="classes_id" nullable="false" remarks="Class' code" size="10" type="INT" typeCode="4">
-            <child catalog="Skilltrakker_API" column="normal_classes_id" foreignKey="fk_gymnast_has_normal_challenges" implied="false" onDeleteCascade="false" table="completed_challenges"/>
+            <child catalog="Skilltrakker_API" column="normal_challenges_classes_id" foreignKey="fk_normal_challenge_is_completed_by_gymnast" implied="false" onDeleteCascade="false" table="completed_normal_challenges"/>
             <parent catalog="Skilltrakker_API" column="id" foreignKey="fk_class_has_challenges" implied="false" onDeleteCascade="false" table="classes"/>
          </column>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="challenges_id" nullable="false" remarks="Challenge' code" size="10" type="INT" typeCode="4">
-            <child catalog="Skilltrakker_API" column="normal_challenges_id" foreignKey="fk_gymnast_has_normal_challenges" implied="false" onDeleteCascade="false" table="completed_challenges"/>
+            <child catalog="Skilltrakker_API" column="normal_challenges_challenges_id" foreignKey="fk_normal_challenge_is_completed_by_gymnast" implied="false" onDeleteCascade="false" table="completed_normal_challenges"/>
             <parent catalog="Skilltrakker_API" column="id" foreignKey="fk_challenge_is_in_class_" implied="false" onDeleteCascade="false" table="challenges"/>
          </column>
          <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="is_active" nullable="false" remarks="Status of the Challenge&#10;0 Inactive&#10;1 Active" size="1" type="BIT" typeCode="-7"/>
@@ -235,7 +259,7 @@
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="skills_id" nullable="false" remarks="Code of the Skill" size="10" type="INT" typeCode="4">
             <parent catalog="Skilltrakker_API" column="id" foreignKey="fk_SKI_has_LVE" implied="false" onDeleteCascade="false" table="skills"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="secuence" nullable="true" remarks="The Skill has a secuence?&#10;0 No&#10;1 Yes" size="1" type="BIT" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="2" name="secuence" nullable="true" remarks="The Skill has a secuence?&#10;0 No&#10;1 Yes" size="1" type="BIT" typeCode="-7"/>
          <primaryKey column="levels_id" sequenceNumberInPK="1"/>
          <primaryKey column="skills_id" sequenceNumberInPK="2"/>
          <index name="PRIMARY" unique="true">
@@ -257,7 +281,7 @@
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="false" remarks="Name of the skill" size="45" type="VARCHAR" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="description" nullable="true" remarks="Description of the Skill" size="16777215" type="MEDIUMTEXT" typeCode="-1"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="category" nullable="false" remarks="category to which the event belongs" size="45" type="VARCHAR" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="certificate" nullable="true" remarks="Boolean value to know the status" size="1" type="BIT" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="4" name="certificate" nullable="true" remarks="Boolean value to know the status" size="1" type="BIT" typeCode="-7"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="events_id" nullable="false" remarks="Code of the Event" size="10" type="INT" typeCode="4">
             <parent catalog="Skilltrakker_API" column="id" foreignKey="fk_skills_events" implied="false" onDeleteCascade="false" table="events"/>
          </column>

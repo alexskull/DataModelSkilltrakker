@@ -159,7 +159,7 @@ CREATE TABLE IF NOT EXISTS skills (
   name VARCHAR(45) NOT NULL COMMENT 'Name of the skill',
   description MEDIUMTEXT NULL COMMENT 'Description of the Skill',
   category VARCHAR(45) NOT NULL COMMENT 'category to which the event belongs',
-  certificate TINYINT(1) GENERATED ALWAYS AS (0)  COMMENT 'Boolean value to know the status',
+  certificate TINYINT(1) DEFAULT 0  COMMENT 'Boolean value to know the status',
   events_id INT NOT NULL COMMENT 'Code of the Event',
   PRIMARY KEY (id),
   INDEX fk_skills_events_idx (events_id ASC))  
@@ -193,7 +193,7 @@ DROP TABLE IF EXISTS skill_has_levels ;
 CREATE TABLE IF NOT EXISTS skill_has_levels (
   levels_id INT NOT NULL COMMENT 'Code of the Level',
   skills_id INT NOT NULL COMMENT 'Code of the Skill',
-  secuence TINYINT(1) GENERATED ALWAYS AS (0)  COMMENT 'The Skill has a secuence?\n0 No\n1 Yes',
+  secuence TINYINT(1) DEFAULT 0  COMMENT 'The Skill has a secuence?\n0 No\n1 Yes',
   PRIMARY KEY (levels_id, skills_id),
   INDEX fk_level_is_part_of_skill_idx (skills_id ASC),
   INDEX fk_skill_has_level_idx (levels_id ASC))
@@ -244,25 +244,37 @@ CREATE TABLE IF NOT EXISTS daily_challenges (
 ENGINE = InnoDB
 COMMENT = 'Table that stores the daily challenges that a class had.';
 
-
 -- -----------------------------------------------------
--- Table completed_challenges
+-- Table completed_daily_challenges
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS completed_challenges ;
+DROP TABLE IF EXISTS completed_daily_challenges ;
 
-CREATE TABLE IF NOT EXISTS completed_challenges (
-  id INT NOT NULL AUTO_INCREMENT COMMENT 'Auto increment code for challenges',
+CREATE TABLE IF NOT EXISTS completed_daily_challenges (
   gymnasts_id INT NOT NULL COMMENT 'gymnast\' code',
-  daily_classes_id INT NULL COMMENT 'Foreing key from DAILY CHALLENGES table',
-  daily_challenges_id INT NULL COMMENT 'Foreing key from DAILY CHALLENGES table',
-  daily_challenges_date DATE NULL COMMENT 'Foreing key from DAILY CHALLENGES table',
-  normal_classes_id INT NULL COMMENT 'Foreing key from NORMAL CHALLENGES table',
-  normal_challenges_id INT NULL COMMENT 'Foreing key from NORMAL CHALLENGES table',
+  daily_challenges_classes_id INT NOT NULL COMMENT 'Foreing key from DAILY CHALLENGES table',
+  daily_challenges_challenges_id INT NOT NULL COMMENT 'Foreing key from DAILY CHALLENGES table',
+  daily_challenges_date DATE NOT NULL COMMENT 'Foreing key from DAILY CHALLENGES table',
   date_of_completation DATE NOT NULL COMMENT 'Date in wich the challenge was completed',
   Interactions JSON NULL COMMENT '\nInteractions for the completed challenged by others gymnasts\nHi 5\nComments\nApplasuse\nIn JSON Format',
-  PRIMARY KEY (id),
-  INDEX fk_gymnast_has_daily_challenges_idx (daily_classes_id ASC, daily_challenges_id ASC, daily_challenges_date ASC),
-  INDEX fk_gymnast_has_normal_challenges_idx (normal_classes_id ASC, normal_challenges_id ASC),
+  PRIMARY KEY (gymnasts_id, daily_challenges_classes_id, daily_challenges_challenges_id, daily_challenges_date),
+  INDEX fk_gymnast_has_daily_challenges_idx (daily_challenges_classes_id ASC, daily_challenges_challenges_id ASC, daily_challenges_date ASC),
+  INDEX fk_completed_challenges_has_gymnasts_idx (gymnasts_id ASC))
+ENGINE = InnoDB
+COMMENT = 'Table that stores the DAILY CHALLENGES that a GYMNAST has completed.';
+
+-- -----------------------------------------------------
+-- Table completed_normal_challenges
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS completed_normal_challenges ;
+
+CREATE TABLE IF NOT EXISTS completed_normal_challenges (
+  gymnasts_id INT NOT NULL COMMENT 'gymnast\' code',
+  normal_challenges_classes_id INT NOT NULL COMMENT 'Foreing key from NORMAL CHALLENGES table',
+  normal_challenges_challenges_id INT NOT NULL COMMENT 'Foreing key from NORMAL CHALLENGES table',
+  date_of_completation DATE NOT NULL COMMENT 'Date in wich the challenge was completed',
+  Interactions JSON NULL COMMENT '\nInteractions for the completed challenged by others gymnasts\nHi 5\nComments\nApplasuse\nIn JSON Format',
+  PRIMARY KEY (gymnasts_id, normal_challenges_classes_id, normal_challenges_challenges_id),
+  INDEX fk_gymnast_has_normal_challenges_idx (normal_challenges_classes_id ASC, normal_challenges_challenges_id ASC),
   INDEX fk_completed_challenges_has_gymnasts_idx (gymnasts_id ASC))
 ENGINE = InnoDB
 COMMENT = 'Table that stores the CHALLENGES that a GYMNAST has completed.';
@@ -366,18 +378,25 @@ ADD CONSTRAINT fk_challenge_has_classes_idx
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
 
-ALTER TABLE completed_challenges
-ADD CONSTRAINT fk_gymnast_has_daily_challenges
-    FOREIGN KEY (daily_classes_id , daily_challenges_id , daily_challenges_date)
+ALTER TABLE completed_daily_challenges
+ADD CONSTRAINT fk_daily_challenge_is_completed_by_gymnast
+    FOREIGN KEY (daily_challenges_classes_id , daily_challenges_challenges_id , daily_challenges_date)
     REFERENCES daily_challenges (classes_id , challenges_id , date_challenge)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-ADD CONSTRAINT fk_gymnast_has_normal_challenges
-    FOREIGN KEY (normal_classes_id , normal_challenges_id)
+ADD CONSTRAINT fk_gymnast_has_daily_challenges
+    FOREIGN KEY (gymnasts_id)
+    REFERENCES gymnasts (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+
+ALTER TABLE completed_normal_challenges
+ADD CONSTRAINT fk_normal_challenge_is_completed_by_gymnast
+    FOREIGN KEY (normal_challenges_classes_id , normal_challenges_challenges_id)
     REFERENCES normal_challenges (classes_id , challenges_id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-ADD CONSTRAINT fk_completed_challenges_has_gymnasts
+ADD CONSTRAINT fk_gymnast_has_normal_challenges
     FOREIGN KEY (gymnasts_id)
     REFERENCES gymnasts (id)
     ON DELETE NO ACTION

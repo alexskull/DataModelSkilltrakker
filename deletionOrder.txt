@@ -1,4 +1,5 @@
-completed_challenges
+completed_daily_challenges
+completed_normal_challenges
 skill_has_levels
 gymnasts_classes
 gymnast_has_skills

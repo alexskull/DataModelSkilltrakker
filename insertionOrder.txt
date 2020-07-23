@@ -12,4 +12,5 @@ timeline
 gymnast_has_skills
 gymnasts_classes
 skill_has_levels
-completed_challenges
+completed_normal_challenges
+completed_daily_challenges

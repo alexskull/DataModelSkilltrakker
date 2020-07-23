@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>gymnasts_classes - Skilltrakker_API Database</title>
+        <title>completed_normal_challenges - Skilltrakker_API Database</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link rel="icon" type="image/png" sizes="16x16" href="../favicon.png">
@@ -73,7 +73,7 @@
             <div class="content-wrapper">
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
-                    <h1>gymnasts_classes</h1><p><span id="recordNumber">0</span> rows</p><br />
+                    <h1>completed_normal_challenges</h1><p><span id="recordNumber">0</span> rows</p><br />
                     <div class="box box-primary">
                         <div class="box-header with-border">
                             <i class="fa fa-file-text-o"></i>
@@ -84,7 +84,7 @@
                             </div>
                         </div><!-- /.box-header -->
                         <div class="box-body clearfix">
-                            <p>Table that stores the CLASSES in what a GYMNAST is enrolled.</p>
+                            <p>Table that stores the CHALLENGES that a GYMNAST has completed.</p>
                         </div><!-- /.box-body -->
                     </div>
                 </section>
@@ -129,15 +129,15 @@
                                     <td>
                                         <table border='0' cellspacing='0' cellpadding='0'>
                                             <tr>
-                                                <td title="gymnasts_classes.gymnasts_id references gymnasts.id via fk_gymnast_has_classes"><a href='gymnasts.html'>gymnasts</a><span class='relatedKey'>.id</span></td>
-                                                <td class="constraint detail">fk_gymnast_has_classes<span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
+                                                <td title="completed_normal_challenges.gymnasts_id references gymnasts.id via fk_gymnast_has_normal_challenges"><a href='gymnasts.html'>gymnasts</a><span class='relatedKey'>.id</span></td>
+                                                <td class="constraint detail">fk_gymnast_has_normal_challenges<span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
                                             </tr>
                                         </table>
                                     </td>
-                                    <td><p>Foreing key from GYMNASTS table</p></td>
+                                    <td><p>gymnast&rsquo; code</p></td>
                                 </tr>
                                 <tr>
-                                    <td class='primaryKey' title='Primary Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="classes_id">classes_id</span></td>
+                                    <td class='primaryKey' title='Primary Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="normal_challenges_classes_id">normal_challenges_classes_id</span></td>
                                     <td>INT</td>
                                     <td>10</td>
                                     <td title=''></td>
@@ -150,12 +150,71 @@
                                     <td>
                                         <table border='0' cellspacing='0' cellpadding='0'>
                                             <tr>
-                                                <td title="gymnasts_classes.classes_id references classes.id via fk_class_has_gymnasts"><a href='classes.html'>classes</a><span class='relatedKey'>.id</span></td>
-                                                <td class="constraint detail">fk_class_has_gymnasts<span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
+                                                <td title="completed_normal_challenges.[normal_challenges_classes_id, normal_challenges_challenges_id] references normal_challenges.[classes_id, challenges_id] via fk_normal_challenge_is_completed_by_gymnast"><a href='normal_challenges.html'>normal_challenges</a><span class='relatedKey'>.classes_id</span></td>
+                                                <td class="constraint detail">fk_normal_challenge_is_completed_by_gymnast<span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
                                             </tr>
                                         </table>
                                     </td>
-                                    <td><p>Foreing key from CLASSES table</p></td>
+                                    <td><p>Foreing key from NORMAL CHALLENGES table</p></td>
+                                </tr>
+                                <tr>
+                                    <td class='primaryKey' title='Primary Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="normal_challenges_challenges_id">normal_challenges_challenges_id</span></td>
+                                    <td>INT</td>
+                                    <td>10</td>
+                                    <td title=''></td>
+                                    <td title=''></td>
+                                    <td>null</td>
+                                    <td>
+                                        <table border='0' cellspacing='0' cellpadding='0'>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table border='0' cellspacing='0' cellpadding='0'>
+                                            <tr>
+                                                <td title="completed_normal_challenges.[normal_challenges_classes_id, normal_challenges_challenges_id] references normal_challenges.[classes_id, challenges_id] via fk_normal_challenge_is_completed_by_gymnast"><a href='normal_challenges.html'>normal_challenges</a><span class='relatedKey'>.challenges_id</span></td>
+                                                <td class="constraint detail">fk_normal_challenge_is_completed_by_gymnast<span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td><p>Foreing key from NORMAL CHALLENGES table</p></td>
+                                </tr>
+                                <tr>
+                                    <td><span id="date_of_completation">date_of_completation</span></td>
+                                    <td>DATE</td>
+                                    <td>10</td>
+                                    <td title=''></td>
+                                    <td title=''></td>
+                                    <td>null</td>
+                                    <td>
+                                        <table border='0' cellspacing='0' cellpadding='0'>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table border='0' cellspacing='0' cellpadding='0'>
+                                        </table>
+                                    </td>
+                                    <td><p>Date in wich the challenge was completed</p></td>
+                                </tr>
+                                <tr>
+                                    <td><span id="Interactions">Interactions</span></td>
+                                    <td>JSON</td>
+                                    <td>1073741824</td>
+                                    <td title='nullable'>√</td>
+                                    <td title=''></td>
+                                    <td>null</td>
+                                    <td>
+                                        <table border='0' cellspacing='0' cellpadding='0'>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table border='0' cellspacing='0' cellpadding='0'>
+                                        </table>
+                                    </td>
+                                    <td><p>Interactions for the completed challenged by others gymnasts<br />
+Hi 5<br />
+Comments<br />
+Applasuse<br />
+In JSON Format</p></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -184,20 +243,20 @@
                                 <tr>
                                     <td class='primaryKey' title='Primary Key'><i class='icon ion-key iconkey'></i> PRIMARY</td>
                                     <td>Primary key</td>
-                                    <td><span title='Ascending'>Asc</span>/<span title='Ascending'>Asc</span></td>
-                                    <td>gymnasts_id + classes_id</td>
+                                    <td><span title='Ascending'>Asc</span>/<span title='Ascending'>Asc</span>/<span title='Ascending'>Asc</span></td>
+                                    <td>gymnasts_id + normal_challenges_classes_id + normal_challenges_challenges_id</td>
                                 </tr>
                                 <tr>
-                                    <td title='Indexed'>fk_class_has_gymnasts_idx</td>
+                                    <td title='Indexed'>fk_completed_challenges_has_gymnasts_idx</td>
                                     <td>Performance</td>
                                     <td><span title='Ascending'>Asc</span></td>
                                     <td>gymnasts_id</td>
                                 </tr>
                                 <tr>
-                                    <td title='Indexed'>fk_gymnast_has_classes_idx</td>
+                                    <td title='Indexed'>fk_gymnast_has_normal_challenges_idx</td>
                                     <td>Performance</td>
-                                    <td><span title='Ascending'>Asc</span></td>
-                                    <td>classes_id</td>
+                                    <td><span title='Ascending'>Asc</span>/<span title='Ascending'>Asc</span></td>
+                                    <td>normal_challenges_classes_id + normal_challenges_challenges_id</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -222,25 +281,25 @@
                                 <div class="tab-content no-padding">
                                     <div class="chart tab-pane active" id="oneDegreeImg-chart" style="position: relative; overflow-x:auto;">
                                         <map id="oneDegreeRelationshipsDiagram" name="oneDegreeRelationshipsDiagram">
-<area shape="rect" id="node1" href="gymnasts_classes.html" target="_top" title="gymnasts_classes" alt="" coords="295,71,557,199">
-<area shape="rect" id="node2" href="classes.html" target="_top" title="classes" alt="" coords="53,169,203,287">
-<area shape="rect" id="node3" href="gymnasts.html" target="_top" title="gymnasts" alt="" coords="5,5,251,152">
+<area shape="rect" id="node1" href="completed_normal_challenges.html" target="_top" title="completed_normal_challenges" alt="" coords="295,137,769,353">
+<area shape="rect" id="node2" href="gymnasts.html" target="_top" title="gymnasts" alt="" coords="5,5,251,152">
+<area shape="rect" id="node3" href="normal_challenges.html" target="_top" title="normal_challenges" alt="" coords="20,169,236,316">
 </map>
-                                        <a name='diagram'><img id="oneDegreeImg" src="../diagrams/tables/gymnasts_classes.1degree.png" usemap="#oneDegreeRelationshipsDiagram" class="diagram" border="0" align="left"></a>
+                                        <a name='diagram'><img id="oneDegreeImg" src="../diagrams/tables/completed_normal_challenges.1degree.png" usemap="#oneDegreeRelationshipsDiagram" class="diagram" border="0" align="left"></a>
                                     </div>
                                     <div class="chart tab-pane " id="twodegreesDegreeImg-chart" style="position: relative; overflow-x:auto;">
                                         <map id="twoDegreesRelationshipsDiagram" name="twoDegreesRelationshipsDiagram">
-<area shape="rect" id="node1" href="completed_daily_challenges.html" target="_top" title="completed_daily_challenges" alt="" coords="497,5,775,93">
-<area shape="rect" id="node2" href="daily_challenges.html" target="_top" title="daily_challenges" alt="" coords="224,5,421,93">
-<area shape="rect" id="node3" href="gymnasts.html" target="_top" title="gymnasts" alt="" coords="200,111,445,257">
-<area shape="rect" id="node6" href="classes.html" target="_top" title="classes" alt="" coords="5,248,156,365">
-<area shape="rect" id="node8" href="users.html" target="_top" title="users" alt="" coords="15,143,147,231">
-<area shape="rect" id="node4" href="completed_normal_challenges.html" target="_top" title="completed_normal_challenges" alt="" coords="489,361,783,449">
-<area shape="rect" id="node5" href="normal_challenges.html" target="_top" title="normal_challenges" alt="" coords="216,361,429,449">
-<area shape="rect" id="node7" href="gymnast_has_skills.html" target="_top" title="gymnast_has_skills" alt="" coords="527,111,745,199">
-<area shape="rect" id="node9" href="gymnasts_classes.html" target="_top" title="gymnasts_classes" alt="" coords="505,216,767,344">
+<area shape="rect" id="node1" href="completed_daily_challenges.html" target="_top" title="completed_daily_challenges" alt="" coords="593,5,871,93">
+<area shape="rect" id="node2" href="gymnasts.html" target="_top" title="gymnasts" alt="" coords="205,117,451,264">
+<area shape="rect" id="node6" href="users.html" target="_top" title="users" alt="" coords="17,149,149,237">
+<area shape="rect" id="node3" href="completed_normal_challenges.html" target="_top" title="completed_normal_challenges" alt="" coords="495,321,969,537">
+<area shape="rect" id="node4" href="normal_challenges.html" target="_top" title="normal_challenges" alt="" coords="220,353,436,500">
+<area shape="rect" id="node8" href="classes.html" target="_top" title="classes" alt="" coords="17,272,150,360">
+<area shape="rect" id="node9" href="challenges.html" target="_top" title="challenges" alt="" coords="5,385,161,473">
+<area shape="rect" id="node5" href="gymnast_has_skills.html" target="_top" title="gymnast_has_skills" alt="" coords="623,111,841,199">
+<area shape="rect" id="node7" href="gymnasts_classes.html" target="_top" title="gymnasts_classes" alt="" coords="627,216,837,304">
 </map>
-                                        <a name='diagram'><img id="twodegreesDegreeImg" src="../diagrams/tables/gymnasts_classes.2degrees.png" usemap="#twoDegreesRelationshipsDiagram" class="diagram" border="0" align="left"></a>
+                                        <a name='diagram'><img id="twodegreesDegreeImg" src="../diagrams/tables/completed_normal_challenges.2degrees.png" usemap="#twoDegreesRelationshipsDiagram" class="diagram" border="0" align="left"></a>
                                     </div>
                                 </div>
                             </div>
